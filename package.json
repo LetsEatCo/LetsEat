@@ -5,8 +5,10 @@
   "scripts": {
     "build": "next build src",
     "export": "next build src && next export src && mv src/out ./",
+    "prettier": "prettier \"./src/**/*.ts\" \"./src/**/*.tsx\" --write",
     "start": "yarn build && NODE_ENV=production ts-node src/server.ts",
-    "start:dev": "NODE_ENV=developement ts-node src/server.ts"
+    "start:dev": "NODE_ENV=developement ts-node src/server.ts",
+    "test:static": "tslint --project ./tsconfig.json 'src/**/*.{ts,tsx}'"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,10 @@
     "@types/node": "^10.9.4",
     "@types/react": "^16.4.13",
     "@types/react-dom": "^16.0.7",
+    "prettier": "^1.14.3",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-react": "^3.6.0",
     "tslint-sonarts": "^1.8.0",
     "tslint-xo": "^0.9.0",
     "typescript": "^3.0.3"

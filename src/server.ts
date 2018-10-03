@@ -1,4 +1,4 @@
-import {createServer, IncomingMessage, ServerResponse} from 'http';
+import {createServer} from 'http';
 import {parse} from 'url';
 import next from 'next';
 
@@ -7,7 +7,7 @@ const app = next({dev, dir: './src'});
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-	createServer((req: IncomingMessage, res: ServerResponse) => {
+	createServer((req, res) => {
 		const parsedUrl = parse(req.url as string, true);
 		const {pathname, query} = parsedUrl;
 
