@@ -194,3 +194,4 @@ typings/
 
 # Serverless directories
 .serverless
+now-secrets\.json

@@ -1,0 +1,10 @@
+{
+  "name": "letseat",
+  "type": "docker",
+  "features": {
+    "cloud": "v2"
+  },
+  "env": [
+    "NODE_ENV"
+  ]
+}
