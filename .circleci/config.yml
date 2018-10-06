@@ -1,0 +1,67 @@
+defaults: &defaults
+  docker:
+  - image: circleci/node:10.6
+    environment:
+      NODE_ENV: test
+  working_directory:  ~/letseat/app
+
+version: 2
+
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run:
+          name: Install packages
+          command: yarn install
+
+      - save_cache:
+          paths:
+          - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+  test-static:
+    <<: *defaults
+
+    steps:
+    - checkout
+
+    - run:
+        name: Install packages
+        command: yarn install
+
+    - run:
+        name: Install TypeScript & TSLint gloabally
+        command: yarn global add tslint typescript
+
+    - run:
+        name: Static code analysis with TypeScript + SonarQube
+        command: yarn test:static
+
+    - store_test_results:
+        path: /tmp/test-results
+    - store_artifacts:
+        path: /tmp/test-results
+        destination: test-results
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+    - build:
+        filters:
+          branches:
+            ignore: master
+    - test-static:
+        requires:
+        - build
