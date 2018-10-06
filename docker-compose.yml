@@ -1,0 +1,17 @@
+version: '2'
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    env_file:
+      - .env
+    command: yarn start:dev
+    volumes:
+      - .:/letseat/app
+    restart: always
+    ports:
+      - "9090:9090"
+    tty: true
+    mem_limit: 300m

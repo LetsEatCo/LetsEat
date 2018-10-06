@@ -1,12 +1,14 @@
 {
   "name": "letseat",
   "version": "0.1.0",
-  "main": "src/server.js",
+  "main": "src/server.ts",
   "scripts": {
-    "build": "next build src",
+    "build": "next build src && mkdir -p build && mv src/.next/ ./build/",
+    "clean": "rm -rf ./build && rm -rf ./out && rm -rf ./src/.next",
+    "deploy": "now --public",
     "export": "next build src && next export src && mv src/out ./",
-    "prettier": "prettier \"./src/**/*.ts\" \"./src/**/*.tsx\" --write",
-    "start": "yarn build && NODE_ENV=production ts-node src/server.ts",
+    "prettify": "prettier \"./src/**/*.ts\" \"./src/**/*.tsx\" --write",
+    "start": "NODE_ENV=production next start build",
     "start:dev": "NODE_ENV=developement ts-node src/server.ts",
     "test:static": "tslint --project ./tsconfig.json 'src/**/*.{ts,tsx}'"
   },
@@ -23,13 +25,14 @@
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
     "next": "^7.0.1",
+    "now-env": "^3.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "ts-node": "^7.0.1"
   },
   "devDependencies": {
-    "@types/react": "^16.4.15",
     "@types/node": "^10.11.4",
+    "@types/react": "^16.4.15",
     "@types/react-dom": "^16.0.7",
     "prettier": "^1.14.3",
     "tslint": "^5.11.0",

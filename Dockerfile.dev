@@ -1,0 +1,15 @@
+FROM mhart/alpine-node:10 as build
+
+RUN mkdir -p /letseat/app
+
+WORKDIR /letseat/app
+
+COPY package.json /letseat/app
+
+COPY . /letseat/app
+
+RUN yarn install
+
+EXPOSE 9090
+
+CMD yarn start:dev
