@@ -24,11 +24,13 @@
   "author": "Let's Eat <hello@letseat.co>",
   "license": "GPL-3.0",
   "dependencies": {
+    "@rebass/grid": "^6.0.0-4",
     "@zeit/next-typescript": "^1.1.1",
     "next": "^7.0.2",
     "now-env": "^3.1.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "rebass": "^3.0.0-9",
     "styled-components": "^3.4.10",
     "ts-node": "^7.0.1"
   },
