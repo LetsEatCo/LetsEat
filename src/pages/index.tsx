@@ -1,5 +1,11 @@
-import * as React from "react";
+import * as React from 'react';
+import styled from 'styled-components';
+
+const Title = styled.h1`
+	color: black;
+	font-size: 50px;
+`;
 
 export default () => {
-	return <div>Welcome to Next.js !</div>;
+	return <Title>Welcome to Next.js !</Title>;
 };
