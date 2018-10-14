@@ -2,6 +2,10 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import {default as Next} from 'next';
 import {env} from '@/utils';
+import dotenv from 'dotenv';
+import config from 'config';
+
+dotenv.config();
 
 const dev = env('NODE_ENV') !== 'production';
 const app = Next({dev, dir: './src'});
@@ -32,7 +36,7 @@ app.prepare().then(() => {
 	});
 
 	server.use(router.routes());
-	server.listen(9090, () => {
-		console.log(`> Ready on http://localhost:${9090}`);
+	server.listen(config.get('app.port'), () => {
+		console.log(`> Ready on port :${config.get('app.port')}`);
 	});
 });

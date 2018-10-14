@@ -9,7 +9,7 @@
     "export": "next build src && next export src && mv src/out ./",
     "prettify": "prettier \"./src/**/*.ts\" \"./src/**/*.tsx\" --write",
     "start": "NODE_ENV=production next start build",
-    "start:dev": "NODE_ENV=developement ts-node -r tsconfig-paths/register src/server.ts",
+    "start:dev": "NODE_ENV=development ts-node -r tsconfig-paths/register src/server.ts",
     "start:test": "NODE_ENV=test yarn test:static",
     "test:static": "tslint --project ./tsconfig.json 'src/**/*.{ts,tsx}'"
   },
