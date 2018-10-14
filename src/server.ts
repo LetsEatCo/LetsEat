@@ -1,8 +1,9 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import {default as Next} from 'next';
+import {env} from '@/utils';
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = env('NODE_ENV') !== 'production';
 const app = Next({dev, dir: './src'});
 const handle = app.getRequestHandler();
 

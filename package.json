@@ -9,7 +9,7 @@
     "export": "next build src && next export src && mv src/out ./",
     "prettify": "prettier \"./src/**/*.ts\" \"./src/**/*.tsx\" --write",
     "start": "NODE_ENV=production next start build",
-    "start:dev": "NODE_ENV=developement ts-node src/server.ts",
+    "start:dev": "NODE_ENV=developement ts-node -r tsconfig-paths/register src/server.ts",
     "start:test": "NODE_ENV=test yarn test:static",
     "test:static": "tslint --project ./tsconfig.json 'src/**/*.{ts,tsx}'"
   },
@@ -26,6 +26,8 @@
   "dependencies": {
     "@rebass/grid": "^6.0.0-4",
     "@zeit/next-typescript": "^1.1.1",
+    "config": "^2.0.1",
+    "dotenv": "^6.1.0",
     "koa": "^2.5.3",
     "koa-router": "^7.4.0",
     "next": "^7.0.2",
@@ -34,7 +36,8 @@
     "react-dom": "^16.4.2",
     "rebass": "^3.0.0-9",
     "styled-components": "^3.4.10",
-    "ts-node": "^7.0.1"
+    "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.6.0"
   },
   "devDependencies": {
     "@types/node": "^10.11.7",
