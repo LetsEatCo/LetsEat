@@ -1,27 +1,37 @@
-import {createServer} from 'http';
-import {parse} from 'url';
-import next from 'next';
+import Koa from 'koa';
+import Router from 'koa-router';
+import {default as Next} from 'next';
 
 const dev = process.env.NODE_ENV !== 'production';
-const app = next({dev, dir: './src'});
+const app = Next({dev, dir: './src'});
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-	createServer((req, res) => {
-		const parsedUrl = parse(req.url as string, true);
-		const {pathname, query} = parsedUrl;
+	const server = new Koa();
+	const router = new Router();
 
-		if (pathname === '/a') {
-			app.render(req, res, '/b', query);
-		} else if (pathname === '/b') {
-			app.render(req, res, '/a', query);
-		} else {
-			handle(req, res, parsedUrl);
-		}
-	}).listen(3000, err => {
-		if (err) {
-			throw err;
-		}
-		console.log('> Ready on http://localhost:3000');
+	router.get('/a', async ctx => {
+		await app.render(ctx.req, ctx.res, '/b', ctx.query);
+		ctx.respond = false;
+	});
+
+	router.get('/b', async ctx => {
+		await app.render(ctx.req, ctx.res, '/a', ctx.query);
+		ctx.respond = false;
+	});
+
+	router.get('*', async ctx => {
+		await handle(ctx.req, ctx.res);
+		ctx.respond = false;
+	});
+
+	server.use(async (ctx, next) => {
+		ctx.res.statusCode = 200;
+		await next();
+	});
+
+	server.use(router.routes());
+	server.listen(9090, () => {
+		console.log(`> Ready on http://localhost:${9090}`);
 	});
 });
