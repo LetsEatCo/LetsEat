@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    container_name: app
+    container_name: lets-eat-app
     build:
       context: .
       dockerfile: ./Dockerfile.dev
@@ -13,5 +13,4 @@ services:
     restart: always
     ports:
       - "9090:9090"
-    tty: true
     mem_limit: 300m
