@@ -1,21 +1,38 @@
 import * as React from 'react';
-import {Box, Flex, Heading, Text, Button} from 'rebass';
+import {Box, Heading, Text} from 'rebass';
+import HomeLayout from '@/layouts/Home/HomeLayout';
+import {connect} from 'react-redux';
+import {GreyColors} from '@/utils/ui';
+import styled from 'styled-components';
 
-export default class Index extends React.Component {
+interface IndexProps extends React.ClassAttributes<any> {
+	store?: any;
+}
+
+const Body = styled(Box)`
+	margin: 0 5%;
+`;
+
+class Index extends React.Component<IndexProps> {
+	static getInitialProps({store}) {
+		return store;
+	}
+
 	render() {
 		return (
-			<Text fontFamily="system-ui,sans-serif">
-				<Box px={3} py={5} color="white" bg="blue">
-					<Heading as="h1" fontSize={[4, 5, 6]}>
-						Hello, Next.js
-					</Heading>
-				</Box>
-				<Flex px={3} py={4} alignItems="center">
-					<Heading color="blue">Hello</Heading>
-					<Box mx="auto" />
-					<Button>Hey</Button>
-				</Flex>
-			</Text>
+			<HomeLayout>
+				<Body>
+					<Text fontWeight="300">
+						<Box px={3} py={5}>
+							<Heading as="h1" fontWeight="700" color={GreyColors.nero}>
+								Hello, Next.js
+							</Heading>
+						</Box>
+					</Text>
+				</Body>
+			</HomeLayout>
 		);
 	}
 }
+
+export default connect()(Index);

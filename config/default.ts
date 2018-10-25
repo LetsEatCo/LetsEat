@@ -8,6 +8,9 @@ const development = {
 	app: {
 		port: process.env.DEV_APP_PORT || 9090
 	},
+	api: {
+		baseUrl: process.env.DEV_API_BASE_URL || 'http://localhost'
+	}
 };
 
 const test = {

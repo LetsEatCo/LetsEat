@@ -14,7 +14,8 @@
       "allow-pascal-case"
     ],
     "file-name-casing": false,
-    "quotemark": ["jsx-single", "jsx-double"]
+    "quotemark": ["jsx-single", "jsx-double"],
+    "jsx-no-multiline-js": false
   },
   "linterOptions": {
     "exclude": [
