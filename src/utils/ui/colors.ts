@@ -5,3 +5,8 @@ export enum GreyColors {
 	stormDust = '#646464',
 	jumbo = '#878787',
 }
+
+export enum Colors {
+	mountainMeadow = '#00CC99',
+	cadmiumRed = '#ED0026',
+}

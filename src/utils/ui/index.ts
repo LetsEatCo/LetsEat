@@ -1,2 +1,2 @@
-export {default} from './font-scale.util';
+export {fontScale} from './font-scale.util';
 export * from './colors';

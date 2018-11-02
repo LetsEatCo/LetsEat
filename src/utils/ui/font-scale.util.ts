@@ -1,6 +1,6 @@
-const px2rem = (v: any): string => `${v / 16}rem`;
+const px2rem = (v: any): any => `${v / 16}rem`;
 
-export default (v: any) => {
+export function fontScale(v: any): any {
 	const base = 16;
 	const ratio = 1.2;
 
@@ -21,4 +21,4 @@ export default (v: any) => {
 	const rBase = Math.round((v / base.length - Math.floor(v / base.length)) * base.length);
 
 	return px2rem(Math.pow(ratio, Math.floor(v / base.length)) * base[rBase]);
-};
+}

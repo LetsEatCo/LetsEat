@@ -1,7 +1,6 @@
 import {Button} from 'rebass';
-import {GreyColors} from '@/utils/ui';
-import fontScale from '@/utils/ui/font-scale.util';
-import * as React from 'react';
+import {GreyColors, fontScale} from '@/utils/ui';
+import React from 'react';
 
 export const LoginButton = props => (
 	<Button

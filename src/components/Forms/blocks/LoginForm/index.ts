@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import {Box} from 'rebass';
-import {Header} from './Header';
 import {Body} from './Body';
-import {EmailField} from './EmailField';
-import {PasswordField} from './PasswordField';
-import {SubmitButton} from './SubmitButton';
 import {LoginButton} from '@/components/Forms/blocks/LoginForm/LoginButton';
+import {Field} from '@/components/Forms/blocks/Common/Field';
+import {Header} from '@/components/Forms/blocks/Common/Header';
+import {CloseButton} from '@/components/Forms/blocks/Common/CloseButton';
+import {SubmitButton} from '@/components/Forms/blocks/Common/SubmitButton';
 
 const LoginForm: any = styled(Box)`
 	max-width: 435px;
@@ -22,9 +22,9 @@ const LoginForm: any = styled(Box)`
 
 LoginForm.Header = Header;
 LoginForm.Body = Body;
-LoginForm.EmailField = EmailField;
-LoginForm.PasswordField = PasswordField;
+LoginForm.Field = Field;
 LoginForm.SubmitButton = SubmitButton;
 LoginForm.LoginButton = LoginButton;
+LoginForm.CloseButton = CloseButton;
 
 export default LoginForm;

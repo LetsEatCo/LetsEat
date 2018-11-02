@@ -5,6 +5,8 @@ import withRedux from 'next-redux-wrapper';
 import {default as Store} from '@/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
+import {ThemeProvider} from 'styled-components';
+import {theme} from '@/utils/ui/theme';
 
 interface AppProps extends React.ClassAttributes<any> {
 	store?: any;
@@ -27,7 +29,9 @@ class MyApp extends App<AppProps> {
 			<Container>
 				<Provider store={store}>
 					<PersistGate persistor={persistor} loading={<div>Loading</div>}>
-						<Component {...pageProps} />
+						<ThemeProvider theme={theme}>
+							<Component {...pageProps} />
+						</ThemeProvider>
 					</PersistGate>
 				</Provider>
 			</Container>

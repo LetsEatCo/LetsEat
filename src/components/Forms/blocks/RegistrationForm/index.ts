@@ -1,19 +1,15 @@
 import styled from 'styled-components';
 import {Box} from 'rebass';
-import {Header} from './Header';
 import {Body} from './Body';
-import {EmailField} from './EmailField';
-import {PasswordField} from './PasswordField';
-import {SubmitButton} from './SubmitButton';
 import {RegistrationButton} from './RegistrationButton';
-import {FirstNameField} from './FirstNameField';
-import {LastNameField} from './LastNameField';
-import {PhoneNumberField} from './PhoneNumberField';
-import {Field} from './Field';
+import {Field} from '@/components/Forms/blocks/Common/Field';
+import {Header} from '@/components/Forms/blocks/Common/Header';
+import {SubmitButton} from '@/components/Forms/blocks/Common/SubmitButton';
+import {CloseButton} from '@/components/Forms/blocks/Common/CloseButton';
 
 const RegistrationForm: any = styled(Box)`
 	max-width: 435px;
-	max-height: 540px;
+	max-height: 640px;
 	position: absolute;
 	visibility: visible;
 	top: 50%;
@@ -26,13 +22,9 @@ const RegistrationForm: any = styled(Box)`
 
 RegistrationForm.Header = Header;
 RegistrationForm.Body = Body;
-RegistrationForm.FirstNameField = FirstNameField;
 RegistrationForm.Field = Field;
-RegistrationForm.LastNameField = LastNameField;
-RegistrationForm.PhoneNumberField = PhoneNumberField;
-RegistrationForm.EmailField = EmailField;
-RegistrationForm.PasswordField = PasswordField;
 RegistrationForm.SubmitButton = SubmitButton;
-RegistrationForm.LoginButton = RegistrationButton;
+RegistrationForm.RegistrationButton = RegistrationButton;
+RegistrationForm.CloseButton = CloseButton;
 
 export default RegistrationForm;

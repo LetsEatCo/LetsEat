@@ -1,16 +1,17 @@
-import {Button, Box, Text} from 'rebass';
+import {Box, Text} from 'rebass';
 import * as React from 'react';
-import fontScale, {GreyColors} from '@/utils/ui';
-import {reduxForm} from 'redux-form';
+import {Colors, fontScale, GreyColors} from '@/utils/ui';
+import {InjectedFormProps, reduxForm} from 'redux-form';
 import RegistrationForm from '@/components/Forms/blocks/RegistrationForm';
 
-interface RegistrationFormProps extends React.ClassAttributes<React.Component> {
+interface RegistrationFormProps extends React.ClassAttributes<any> {
 	showLoginForm?: boolean;
 	hideLoginForm?: boolean;
 	handleSubmit?: any;
+	error?: any;
 }
 
-class RegistrationFormComponent extends React.Component<RegistrationFormProps> {
+class RegistrationFormComponent extends React.Component<InjectedFormProps<RegistrationFormProps>> {
 	constructor(props) {
 		super(props);
 	}
@@ -30,15 +31,15 @@ class RegistrationFormComponent extends React.Component<RegistrationFormProps> {
 	render() {
 		return (
 			<div>
-				<RegistrationForm.LoginButton onClick={this.showRegistrationForm} text={'Sign Up'} />
+				<RegistrationForm.RegistrationButton onClick={this.showRegistrationForm} text={'Sign Up'} />
 				{this.state.showRegistrationForm && (
 					<RegistrationForm>
 						<RegistrationForm.Header>
 							<Box>
-								<Text fontSize={fontScale(2)} fontColor={GreyColors.tuatara}>
+								<Text fontSize={fontScale(2)} color={GreyColors.tuatara}>
 									Sign Up
 								</Text>
-								<Button onClick={this.hideRegistrationForm}>X</Button>
+								<RegistrationForm.CloseButton onClick={this.hideRegistrationForm} />
 							</Box>
 						</RegistrationForm.Header>
 						<RegistrationForm.Body onSubmit={this.props.handleSubmit}>
@@ -74,6 +75,11 @@ class RegistrationFormComponent extends React.Component<RegistrationFormProps> {
 								placeholder="Password"
 								required={true}
 							/>
+							{this.props.error && (
+								<Text fontSize={fontScale(-2)} color={Colors.cadmiumRed} mt={3}>
+									{this.props.error}
+								</Text>
+							)}
 							<RegistrationForm.SubmitButton type="submit">Register</RegistrationForm.SubmitButton>
 						</RegistrationForm.Body>
 					</RegistrationForm>

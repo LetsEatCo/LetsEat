@@ -1,6 +1,6 @@
 import {Button} from 'rebass';
 import {GreyColors} from '@/utils/ui';
-import fontScale from '@/utils/ui/font-scale.util';
+import {fontScale} from '@/utils/ui/font-scale.util';
 import * as React from 'react';
 
 export const RegistrationButton = props => (

@@ -1,7 +1,5 @@
 import React from 'react';
-import {Box} from 'rebass';
-import styled from 'styled-components';
-import Logo from '@/components/Logo/Logo';
+import {BlackLogoNoFork} from '@/components/Logo';
 import {default as NextLink} from 'next/link';
 import LoginForm from '@/components/Forms/LoginForm';
 import {SubmissionError} from 'redux-form';
@@ -9,47 +7,19 @@ import {CUSTOMER_LOGIN_REQUEST, CUSTOMER_REGISTRATION_REQUEST} from '@/store/act
 import {store} from '@/store';
 import {connect} from 'react-redux';
 import RegistrationForm from '@/components/Forms/RegistrationForm';
+import {default as StyledHeader} from '@/components/Header/blocks/Header';
 
 interface HeaderProps extends React.ClassAttributes<React.Component> {
 	isLoggedIn?: boolean;
+	loginFormError: string;
+	loginForm: any;
 }
-
-const Container = styled(Box)`
-	display: flex;
-	max-width: 1024px;
-	max-height: 72px;
-	margin: 0 auto;
-	width: 100%;
-`;
-
-const FlexStart = styled(Box)`
-	display: flex;
-	flex-grow: 1;
-	align-items: center;
-	width: auto;
-	justify-content: flex-start;
-`;
-
-const FlexEnd = styled(Box)`
-	display: flex;
-	flex: auto;
-	align-items: center;
-	width: auto;
-	justify-content: flex-end;
-`;
-
-const StyledLink = styled.a`
-	display: inline-flex;
-	height: 100%;
-	align-items: center;
-	width: auto;
-`;
 
 const Link = ({href}) => (
 	<NextLink href={href} passHref={true}>
-		<StyledLink>
-			<Logo />
-		</StyledLink>
+		<StyledHeader.Link>
+			<BlackLogoNoFork />
+		</StyledHeader.Link>
 	</NextLink>
 );
 
@@ -87,7 +57,11 @@ class Header extends React.Component<HeaderProps> {
 				});
 			});
 		} catch (err) {
-			throw new SubmissionError(err);
+			console.log(err);
+			throw new SubmissionError({
+				_error:
+					'Please enter a correct email and password. Note that both fields may be case-sensitive.',
+			});
 		}
 	}
 
@@ -110,12 +84,12 @@ class Header extends React.Component<HeaderProps> {
 
 	render() {
 		return (
-			<Box px={20}>
-				<Container>
-					<FlexStart>
+			<StyledHeader px={20}>
+				<StyledHeader.Container>
+					<StyledHeader.Left>
 						<Link href={'/'} />
-					</FlexStart>
-					<FlexEnd>
+					</StyledHeader.Left>
+					<StyledHeader.Right>
 						{!this.props.isLoggedIn ? (
 							[
 								<LoginForm key={0} onSubmit={this.handleLoginFormSubmit} />,
@@ -124,9 +98,9 @@ class Header extends React.Component<HeaderProps> {
 						) : (
 							<div />
 						)}
-					</FlexEnd>
-				</Container>
-			</Box>
+					</StyledHeader.Right>
+				</StyledHeader.Container>
+			</StyledHeader>
 		);
 	}
 }

@@ -24,6 +24,7 @@ export const loginCustomerEpic = action$ =>
 							obs.next({type: CUSTOMER_FETCH_PROFILE_REQUEST, payload: response});
 						},
 						error: error => {
+							console.log(error);
 							reject(error);
 							obs.error({type: CUSTOMER_LOGIN_REQUEST_FAILED, payload: error});
 						},

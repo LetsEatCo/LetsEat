@@ -801,6 +801,19 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/rebass@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@types/rebass/-/rebass-0.3.1.tgz#cb83828ffe9c141e638316bb08421d398f3d46eb"
+  dependencies:
+    "@types/react" "*"
+
+"@types/redux-form@^7.4.11":
+  version "7.4.11"
+  resolved "https://registry.yarnpkg.com/@types/redux-form/-/redux-form-7.4.11.tgz#4fe344399d167378f8701c748ae6e36c196a235c"
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0 || ^4.0.0"
+
 "@types/redux@^3.6.0":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@types/redux/-/redux-3.6.0.tgz#f1ebe1e5411518072e4fdfca5c76e16e74c1399a"
@@ -813,6 +826,13 @@
   dependencies:
     "@types/express-serve-static-core" "*"
     "@types/mime" "*"
+
+"@types/styled-components@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.0.3.tgz#8287e54e446302369eecc521243a2f32cf9122ee"
+  dependencies:
+    "@types/node" "*"
+    "@types/react" "*"
 
 "@types/styled-jsx@^2.2.5":
   version "2.2.5"
@@ -4224,7 +4244,7 @@ redux-persist@^5.10.0:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
 
-redux@*, redux@^4.0.0, redux@^4.0.1:
+redux@*, "redux@^3.6.0 || ^4.0.0", redux@^4.0.0, redux@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.1.tgz#436cae6cc40fbe4727689d7c8fae44808f1bfef5"
   dependencies:
