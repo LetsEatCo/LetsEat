@@ -3,6 +3,7 @@ defaults: &defaults
   - image: circleci/node:10.6
     environment:
       NODE_ENV: test
+      CI: true
   working_directory:  ~/letseat/app
 
 version: 2
@@ -30,7 +31,21 @@ jobs:
           - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-  test-static:
+  analyze:dependencies:
+    <<: *defaults
+    steps:
+    - checkout
+    - run:
+        name: Install FOSSA CLI
+        command: |
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | bash
+    - run:
+        name: Dependencies analysis with FOSSA
+        command: |
+          fossa init
+          FOSSA_API_KEY=$FOSSA_API_KEY fossa
+
+  test:static:
     <<: *defaults
 
     steps:
@@ -62,6 +77,9 @@ workflows:
         filters:
           branches:
             ignore: master
-    - test-static:
+    - analyze:dependencies:
+        requires:
+        - build
+    - test:static:
         requires:
         - build
