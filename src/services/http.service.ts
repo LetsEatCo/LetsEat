@@ -1,11 +1,13 @@
 import axios, {AxiosResponse} from 'axios';
 import {Observable} from 'rxjs';
+import Cookies from 'universal-cookie';
 
 export const http = () => {
+	const cookies = new Cookies();
 	const defaultOptions = {
 		baseURL: CONFIG.api.baseUrl,
 		headers: {
-			Authorization: localStorage.getItem('JWT') ? `Bearer ${localStorage.getItem('JWT')}` : '',
+			Authorization: cookies.get('JWT') ? `Bearer ${cookies.get('JWT')}` : '',
 		},
 	};
 

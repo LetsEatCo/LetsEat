@@ -1,22 +1,19 @@
 import {default as React, ReactNode} from 'react';
 import {Head, Header} from '@/components/Header';
-import Fonts from '@/assets/fonts';
 import {Footer} from '@/components/Footer/Footer';
+import {theme} from '@/utils/ui/theme';
+import {LayoutProps} from '@/typings/layout.props';
 
-export default class HomeLayout extends React.Component {
+export default class FeedLayout extends React.Component<LayoutProps> {
 	constructor(props) {
 		super(props);
-	}
-
-	componentDidMount() {
-		Fonts();
 	}
 
 	render(): ReactNode {
 		return (
 			<div>
 				<Head />
-				<Header />
+				<Header headerBackgroundColor={theme.colors.HeaderPink} />
 				{this.props.children}
 				<Footer />
 			</div>

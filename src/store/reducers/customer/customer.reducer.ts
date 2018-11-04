@@ -1,7 +1,7 @@
 import {
 	CUSTOMER_FETCH_PROFILE_REQUEST_SUCCEEDED,
 	CUSTOMER_REGISTRATION_OR_LOGIN_REQUEST_SUCCEEDED,
-} from '@/store/actions';
+} from '@/store/constants';
 
 export const customer = (state = {}, action) => {
 	switch (action.type) {
@@ -9,7 +9,6 @@ export const customer = (state = {}, action) => {
 			return {
 				...state,
 				isLoggedIn: true,
-				jwt: action.payload.data.jwt,
 			};
 		case CUSTOMER_FETCH_PROFILE_REQUEST_SUCCEEDED:
 			return {

@@ -4,6 +4,7 @@ import {default as Next} from 'next';
 import {env} from '@/utils';
 import dotenv from 'dotenv';
 import config from 'config';
+import universalCookie from 'universal-cookie-koa';
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app
 			await next();
 		});
 
+		server.use(universalCookie());
 		server.use(router.routes());
 		server.listen(config.get('app.port'), () => {
 			console.log(`> Ready on port :${config.get('app.port')}`);

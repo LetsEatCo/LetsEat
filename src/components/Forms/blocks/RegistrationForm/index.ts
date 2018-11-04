@@ -10,7 +10,7 @@ import {CloseButton} from '@/components/Forms/blocks/Common/CloseButton';
 const RegistrationForm: any = styled(Box)`
 	max-width: 435px;
 	max-height: 640px;
-	position: absolute;
+	position: fixed;
 	visibility: visible;
 	top: 50%;
 	left: 50%;

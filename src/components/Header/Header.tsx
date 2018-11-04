@@ -3,16 +3,19 @@ import {BlackLogoNoFork} from '@/components/Logo';
 import {default as NextLink} from 'next/link';
 import LoginForm from '@/components/Forms/LoginForm';
 import {SubmissionError} from 'redux-form';
-import {CUSTOMER_LOGIN_REQUEST, CUSTOMER_REGISTRATION_REQUEST} from '@/store/actions';
-import {store} from '@/store';
 import {connect} from 'react-redux';
 import RegistrationForm from '@/components/Forms/RegistrationForm';
 import {default as StyledHeader} from '@/components/Header/blocks/Header';
+import {bindActionCreators} from 'redux';
+import {customerLoginAction, customerRegisterationAction} from '@/store/actions/customer.actions';
 
 interface HeaderProps extends React.ClassAttributes<React.Component> {
 	isLoggedIn?: boolean;
-	loginFormError: string;
-	loginForm: any;
+	loginFormError?: string;
+	loginForm?: any;
+	headerBackgroundColor: any;
+	customerLoginAction?: any;
+	customerRegistrationAction?: any;
 }
 
 const Link = ({href}) => (
@@ -29,6 +32,13 @@ function mapStateToProps(state) {
 	};
 }
 
+function mapDispatchToProps(dispatch) {
+	return {
+		customerLoginAction: bindActionCreators(customerLoginAction, dispatch),
+		customerRegisterAction: bindActionCreators(customerRegisterationAction, dispatch),
+	};
+}
+
 class Header extends React.Component<HeaderProps> {
 	constructor(props) {
 		super(props);
@@ -36,28 +46,12 @@ class Header extends React.Component<HeaderProps> {
 		this.handleRegisterFormSubmit = this.handleRegisterFormSubmit.bind(this);
 	}
 
-	static async getInitialProps({Component, ctx}) {
-		return {
-			pageProps: {
-				...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
-			},
-		};
-	}
-
 	async handleLoginFormSubmit(values) {
 		try {
 			await new Promise((resolve, reject) => {
-				store.dispatch({
-					type: CUSTOMER_LOGIN_REQUEST,
-					payload: values,
-					meta: {
-						resolve,
-						reject,
-					},
-				});
+				this.props.customerLoginAction(values, resolve, reject);
 			});
-		} catch (err) {
-			console.log(err);
+		} catch {
 			throw new SubmissionError({
 				_error:
 					'Please enter a correct email and password. Note that both fields may be case-sensitive.',
@@ -68,14 +62,7 @@ class Header extends React.Component<HeaderProps> {
 	async handleRegisterFormSubmit(values) {
 		try {
 			await new Promise((resolve, reject) => {
-				store.dispatch({
-					type: CUSTOMER_REGISTRATION_REQUEST,
-					payload: values,
-					meta: {
-						resolve,
-						reject,
-					},
-				});
+				this.props.customerRegistrationAction(values, resolve, reject);
 			});
 		} catch (err) {
 			throw new SubmissionError(err);
@@ -84,10 +71,10 @@ class Header extends React.Component<HeaderProps> {
 
 	render() {
 		return (
-			<StyledHeader px={20}>
+			<StyledHeader px={20} bg={this.props.headerBackgroundColor} as={'header'}>
 				<StyledHeader.Container>
 					<StyledHeader.Left>
-						<Link href={'/'} />
+						<Link href={'/feed'} />
 					</StyledHeader.Left>
 					<StyledHeader.Right>
 						{!this.props.isLoggedIn ? (
@@ -105,4 +92,7 @@ class Header extends React.Component<HeaderProps> {
 	}
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(Header);

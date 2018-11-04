@@ -10,7 +10,7 @@ import {SubmitButton} from '@/components/Forms/blocks/Common/SubmitButton';
 const LoginForm: any = styled(Box)`
 	max-width: 435px;
 	max-height: 540px;
-	position: absolute;
+	position: fixed;
 	visibility: visible;
 	top: 50%;
 	left: 50%;

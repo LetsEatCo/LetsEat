@@ -2,41 +2,43 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import App, {Container} from 'next/app';
 import withRedux from 'next-redux-wrapper';
-import {default as Store} from '@/store';
 import {PersistGate} from 'redux-persist/integration/react';
-import {persistStore} from 'redux-persist';
 import {ThemeProvider} from 'styled-components';
 import {theme} from '@/utils/ui/theme';
+import Fonts from '@/assets/fonts';
+import {makeStore} from '@/services/persistor.service';
 
 interface AppProps extends React.ClassAttributes<any> {
 	store?: any;
 }
 
-class MyApp extends App<AppProps> {
-	static async getInitialProps({Component, ctx}) {
-		return {
-			pageProps: {
-				// Call page-level getInitialProps
-				...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
-			},
-		};
-	}
+export default withRedux(makeStore, {debug: true})(
+	class extends App<AppProps> {
+		static async getInitialProps({Component, ctx}) {
+			return {
+				pageProps: {
+					...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+				},
+			};
+		}
 
-	render() {
-		const {Component, pageProps, store} = this.props;
-		const persistor = persistStore(store);
-		return (
-			<Container>
-				<Provider store={store}>
-					<PersistGate persistor={persistor} loading={<div>Loading</div>}>
-						<ThemeProvider theme={theme}>
-							<Component {...pageProps} />
-						</ThemeProvider>
-					</PersistGate>
-				</Provider>
-			</Container>
-		);
-	}
-}
+		componentDidMount() {
+			Fonts();
+		}
 
-export default withRedux(Store, {debug: true})(MyApp);
+		render() {
+			const {Component, pageProps, store} = this.props;
+			return (
+				<Container>
+					<Provider store={store}>
+						<PersistGate persistor={store.__PERSISTOR__} loading={<div>Loading</div>}>
+							<ThemeProvider theme={theme}>
+								<Component {...pageProps} />
+							</ThemeProvider>
+						</PersistGate>
+					</Provider>
+				</Container>
+			);
+		}
+	},
+);

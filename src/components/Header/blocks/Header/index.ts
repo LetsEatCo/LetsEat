@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 import {Box} from 'rebass';
 
-const Header: any = styled.header`
+const Header: any = styled(Box)`
+	position: sticky;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 400;
 	padding: 0 20px;
-	background-color: ${props => props.theme.colors.HeaderOrange};
 `;
 
 const Container = styled(Box)`

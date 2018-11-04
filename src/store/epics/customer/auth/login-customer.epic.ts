@@ -1,13 +1,12 @@
 import {Observable} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
+import {ofType} from 'redux-observable';
+import {http} from '@/services/http.service';
 import {
 	CUSTOMER_FETCH_PROFILE_REQUEST,
 	CUSTOMER_LOGIN_REQUEST,
-	CUSTOMER_LOGIN_REQUEST_FAILED,
 	CUSTOMER_REGISTRATION_OR_LOGIN_REQUEST_SUCCEEDED,
-} from '@/store/actions';
-import {ofType} from 'redux-observable';
-import {http} from '@/services/http.service';
+} from '@/store/constants';
 
 export const loginCustomerEpic = action$ =>
 	action$.pipe(
@@ -24,9 +23,7 @@ export const loginCustomerEpic = action$ =>
 							obs.next({type: CUSTOMER_FETCH_PROFILE_REQUEST, payload: response});
 						},
 						error: error => {
-							console.log(error);
 							reject(error);
-							obs.error({type: CUSTOMER_LOGIN_REQUEST_FAILED, payload: error});
 						},
 					});
 			});

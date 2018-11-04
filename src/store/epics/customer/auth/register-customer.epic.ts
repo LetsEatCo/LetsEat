@@ -1,13 +1,13 @@
 import {Observable} from 'rxjs';
 import {mergeMap} from 'rxjs/operators';
-import {
-	CUSTOMER_FETCH_PROFILE_REQUEST,
-	CUSTOMER_REGISTRATION_REQUEST,
-	CUSTOMER_REGISTRATION_REQUEST_FAILED,
-	CUSTOMER_REGISTRATION_OR_LOGIN_REQUEST_SUCCEEDED,
-} from '@/store/actions';
 import {ofType} from 'redux-observable';
 import {http} from '@/services/http.service';
+import {
+	CUSTOMER_FETCH_PROFILE_REQUEST,
+	CUSTOMER_REGISTRATION_OR_LOGIN_REQUEST_SUCCEEDED,
+	CUSTOMER_REGISTRATION_REQUEST,
+	CUSTOMER_REGISTRATION_REQUEST_FAILED,
+} from '@/store/constants';
 
 export const registerCustomerEpic = action$ =>
 	action$.pipe(
