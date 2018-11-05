@@ -10,10 +10,10 @@ import {connect} from 'react-redux';
 import {default as NextLink} from 'next/link';
 import {createStoreSectionsList, StoreSectionsList} from '@/components/Lists/StoreSectionsList';
 
-interface StorePageProps extends React.ClassAttributes<any> {
-	store?: any;
-	storeData?: any;
-	cuisineSlug?: string;
+interface StorePageProps {
+	store: any;
+	storeData: any;
+	cuisineSlug: string;
 }
 
 const CuisineLink = ({href, text}) => (
@@ -22,7 +22,7 @@ const CuisineLink = ({href, text}) => (
 	</NextLink>
 );
 
-class StorePage extends React.Component<StorePageProps> {
+class StorePage extends React.Component<Partial<StorePageProps>> {
 	static async getInitialProps({query}) {
 		const res = await http()
 			.get('/stores/', {params: {slug: query.slug}})
@@ -31,10 +31,6 @@ class StorePage extends React.Component<StorePageProps> {
 			storeData: res.data[0],
 			cuisineSlug: res.data[0].cuisines[0] ? res.data[0].cuisines[0].slug : '',
 		};
-	}
-
-	componentDidMount() {
-		console.log(this.props);
 	}
 
 	render() {
