@@ -57,7 +57,7 @@ export const createStoreList = (stores: any[]) => {
 	for (const [index, store] of stores.entries()) {
 		list.push(
 			<Store key={index}>
-				<NextLink href={`/store/${store.slug}`} passHref={true}>
+				<NextLink as={`/store/${store.slug}`} href={`/store?slug=${store.slug}`} passHref={true}>
 					<StoreLink>
 						<StoreCardImage />
 						<StoreDescription>

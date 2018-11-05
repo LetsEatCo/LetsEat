@@ -13,7 +13,7 @@ export default class HomeLayout extends React.Component<LayoutProps> {
 		return (
 			<div>
 				<Head />
-				<Header headerBackgroundColor={theme.colors.HeaderOrange} sticky={true} />
+				<Header headerBackgroundColor={theme.colors.White} sticky={false} />
 				{this.props.children}
 				<Footer />
 			</div>

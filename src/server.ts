@@ -18,8 +18,8 @@ app
 		const server = new Koa();
 		const router = new Router();
 
-		router.get('/a', async ctx => {
-			await app.render(ctx.req, ctx.res, '/b', ctx.query);
+		router.get('/store/:slug', async ctx => {
+			await app.render(ctx.req, ctx.res, '/store', ctx.params);
 			ctx.respond = false;
 		});
 

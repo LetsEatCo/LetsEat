@@ -16,6 +16,7 @@ interface HeaderProps extends React.ClassAttributes<React.Component> {
 	headerBackgroundColor: any;
 	customerLoginAction?: any;
 	customerRegistrationAction?: any;
+	sticky: boolean;
 }
 
 const Link = ({href}) => (
@@ -71,7 +72,12 @@ class Header extends React.Component<HeaderProps> {
 
 	render() {
 		return (
-			<StyledHeader px={20} bg={this.props.headerBackgroundColor} as={'header'}>
+			<StyledHeader
+				px={20}
+				bg={this.props.headerBackgroundColor}
+				as={'header'}
+				sticky={this.props.sticky}
+			>
 				<StyledHeader.Container>
 					<StyledHeader.Left>
 						<Link href={'/feed'} />

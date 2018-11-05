@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {Box} from 'rebass';
 
-const Header: any = styled(Box)`
-	position: sticky;
+const Header: any = styled(Box)<any>`
+	position: ${props => (props.sticky ? 'sticky' : 'relative')};
 	top: 0;
 	right: 0;
 	left: 0;

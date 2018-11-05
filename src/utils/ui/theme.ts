@@ -25,6 +25,8 @@ export const theme = {
 		foreground: '#2D3138',
 		placeholder: 'rgba(45, 49, 56, 0.5)',
 		secondaryText: '#8F95A3',
+		labelBackgroundPink: 'rgba(250, 94, 94, 0.1)',
+		labelTextPink: 'rgb(250, 94, 94)',
 	},
 	breakpoints: [480, 768, 1025, 1281],
 };

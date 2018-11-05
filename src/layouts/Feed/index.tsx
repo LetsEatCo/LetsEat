@@ -13,7 +13,7 @@ export default class FeedLayout extends React.Component<LayoutProps> {
 		return (
 			<div>
 				<Head />
-				<Header headerBackgroundColor={theme.colors.HeaderPink} />
+				<Header headerBackgroundColor={theme.colors.HeaderPink} sticky={true} />
 				{this.props.children}
 				<Footer />
 			</div>

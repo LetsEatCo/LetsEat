@@ -47,6 +47,7 @@
     "redux-persist": "^5.10.0",
     "rxjs": "^6.3.3",
     "styled-components": "^4.0.2",
+    "styled-components-modifiers": "^1.0.3",
     "ts-node": "^7.0.1",
     "tsconfig-paths": "^3.6.0",
     "universal-cookie": "^3.0.4",
