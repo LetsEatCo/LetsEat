@@ -817,9 +817,9 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/rebass@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@types/rebass/-/rebass-0.3.1.tgz#cb83828ffe9c141e638316bb08421d398f3d46eb"
+"@types/rebass@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@types/rebass/-/rebass-0.3.2.tgz#6c5e398528e8a7e55453bc1d3374fa00198e1379"
   dependencies:
     "@types/react" "*"
 
