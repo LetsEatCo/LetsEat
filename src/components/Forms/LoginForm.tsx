@@ -4,7 +4,7 @@ import {Colors, fontScale, GreyColors} from '@/utils/ui';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import LoginForm from '@/components/Forms/blocks/LoginForm';
 
-interface LoginFormProps extends React.ClassAttributes<any> {
+interface LoginFormProps {
 	showLoginForm?: boolean;
 	hideLoginForm?: boolean;
 	handleSubmit?: any;
@@ -20,13 +20,9 @@ class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProp
 		showLoginForm: false,
 	};
 
-	showLoginForm = () => {
-		this.setState({showLoginForm: true});
-	};
+	showLoginForm = () => this.setState({showLoginForm: true});
 
-	hideLoginForm = () => {
-		this.setState({showLoginForm: false});
-	};
+	hideLoginForm = () => this.setState({showLoginForm: false});
 
 	render() {
 		return (

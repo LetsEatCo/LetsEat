@@ -1,4 +1,4 @@
-import {default as React, ReactNode} from 'react';
+import React from 'react';
 import {Head, Header} from '@/components/Header';
 import {Footer} from '@/components/Footer/Footer';
 import {theme} from '@/utils/ui/theme';
@@ -9,7 +9,7 @@ export default class HomeLayout extends React.Component<LayoutProps> {
 		super(props);
 	}
 
-	render(): ReactNode {
+	render() {
 		return (
 			<div>
 				<Head />

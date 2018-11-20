@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Field as ReduxFormField} from 'redux-form';
 import {GreyColors, fontScale} from '@/utils/ui';
 
-export const Field: any = styled(ReduxFormField)`
+export const Field: any = styled(ReduxFormField as any)`
 	& {
 		padding: 22px 0 22px 0;
 		font-size: ${fontScale(0)};

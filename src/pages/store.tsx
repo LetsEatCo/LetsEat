@@ -8,13 +8,21 @@ import StoreBar from '@/components/Store/blocks/StoreBar';
 import {StoreInformations} from '@/components/Store/blocks/StoreInformations';
 import {connect} from 'react-redux';
 import {default as NextLink} from 'next/link';
-import {createStoreSectionsList, StoreSectionsList} from '@/components/Lists/StoreSectionsList';
+import {createStoreSectionsList} from '@/components/Lists/StoreSectionsList';
+import {StoreSectionsList} from '@/components/Lists/blocks/StoreSectionsList';
 
 interface StorePageProps {
 	store: any;
 	storeData: any;
 	cuisineSlug: string;
+	itemsCount: number;
 }
+
+const mapStateToProps = state => {
+	return {
+		itemsCount: state.cart.itemsCount,
+	};
+};
 
 const CuisineLink = ({href, text}) => (
 	<NextLink href={href} passHref={true}>
@@ -22,14 +30,14 @@ const CuisineLink = ({href, text}) => (
 	</NextLink>
 );
 
-class StorePage extends React.Component<Partial<StorePageProps>> {
-	static async getInitialProps({query}) {
+class StorePage extends React.Component<Readonly<Partial<StorePageProps>>> {
+	static async getInitialProps({query}): Promise<{storeData: any; cuisineSlug: string}> {
 		const res = await http()
 			.get('/stores/', {params: {slug: query.slug}})
 			.toPromise();
 		return {
-			storeData: res.data[0],
-			cuisineSlug: res.data[0].cuisines[0] ? res.data[0].cuisines[0].slug : '',
+			storeData: res.data,
+			cuisineSlug: res.data.cuisines[0] || '',
 		};
 	}
 
@@ -39,7 +47,7 @@ class StorePage extends React.Component<Partial<StorePageProps>> {
 				<StoreBanner />
 				<StoreBar>
 					<Container flexDirection={'row'} alignItems={'center'}>
-						<StoreBar.CartButton>Items</StoreBar.CartButton>
+						<StoreBar.CartButton>{this.props.itemsCount} Items</StoreBar.CartButton>
 					</Container>
 				</StoreBar>
 				<Container flexDirection={'column'}>
@@ -63,4 +71,4 @@ class StorePage extends React.Component<Partial<StorePageProps>> {
 	}
 }
 
-export default connect()(StorePage);
+export default connect(mapStateToProps)(StorePage);

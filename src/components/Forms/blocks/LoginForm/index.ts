@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import {Box} from 'rebass';
-import {Body} from './Body';
 import {LoginButton} from '@/components/Forms/blocks/LoginForm/LoginButton';
 import {Field} from '@/components/Forms/blocks/Common/Field';
 import {Header} from '@/components/Forms/blocks/Common/Header';
-import {CloseButton} from '@/components/Forms/blocks/Common/CloseButton';
+import {Body} from '@/components/Forms/blocks/Common/Body';
+import {CloseButton} from '@/components/Common/CloseButton';
 import {SubmitButton} from '@/components/Forms/blocks/Common/SubmitButton';
 
 const LoginForm: any = styled(Box)`

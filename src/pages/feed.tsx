@@ -14,18 +14,12 @@ interface FeedPageProps extends React.ClassAttributes<any> {
 	stores?: any;
 }
 
-const mapStateToProps = state => {
-	return {
-		stores: state.stores.stores,
-	};
-};
-
 class FeedPage extends React.Component<FeedPageProps> {
 	static async getInitialProps({store}) {
 		const resultAction = await rootEpic(of({type: FETCH_STORES})).toPromise();
 		store.dispatch(resultAction);
 		const res = await resultAction;
-		return {stores: res.payload.data.stores};
+		return {stores: res.payload.data};
 	}
 
 	render() {
@@ -57,4 +51,4 @@ class FeedPage extends React.Component<FeedPageProps> {
 	}
 }
 
-export default connect(mapStateToProps)(FeedPage);
+export default connect()(FeedPage);

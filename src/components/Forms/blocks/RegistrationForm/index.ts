@@ -5,7 +5,7 @@ import {RegistrationButton} from './RegistrationButton';
 import {Field} from '@/components/Forms/blocks/Common/Field';
 import {Header} from '@/components/Forms/blocks/Common/Header';
 import {SubmitButton} from '@/components/Forms/blocks/Common/SubmitButton';
-import {CloseButton} from '@/components/Forms/blocks/Common/CloseButton';
+import {CloseButton} from '@/components/Common/CloseButton';
 
 const RegistrationForm: any = styled(Box)`
 	max-width: 435px;

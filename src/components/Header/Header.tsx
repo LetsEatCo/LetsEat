@@ -9,7 +9,7 @@ import {default as StyledHeader} from '@/components/Header/blocks/Header';
 import {bindActionCreators} from 'redux';
 import {customerLoginAction, customerRegisterationAction} from '@/store/actions/customer.actions';
 
-interface HeaderProps extends React.ClassAttributes<React.Component> {
+interface HeaderProps {
 	isLoggedIn?: boolean;
 	loginFormError?: string;
 	loginForm?: any;
@@ -84,10 +84,10 @@ class Header extends React.Component<HeaderProps> {
 					</StyledHeader.Left>
 					<StyledHeader.Right>
 						{!this.props.isLoggedIn ? (
-							[
-								<LoginForm key={0} onSubmit={this.handleLoginFormSubmit} />,
-								<RegistrationForm key={1} onSubmit={this.handleRegisterFormSubmit} />,
-							]
+							<>
+								<LoginForm onSubmit={this.handleLoginFormSubmit} />
+								<RegistrationForm onSubmit={this.handleRegisterFormSubmit} />
+							</>
 						) : (
 							<div />
 						)}
