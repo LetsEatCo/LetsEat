@@ -1,15 +1,8 @@
-import styled, {StyledComponentClass} from 'styled-components';
+import styled from 'styled-components';
 import {Box, Flex, Text} from 'rebass';
 import {BlackLogo} from '@/components/Logo';
 
-interface HeroElements extends StyledComponentClass<any, any> {
-	Title?: any;
-	Logo?: any;
-	Container?: any;
-	Paragraph?: any;
-}
-
-const Hero: HeroElements = styled(Box)<any>`
+const Hero: any = styled(Box)<any>`
 	margin: 0 auto;
 	height: ${props => props.height || '540px'};
 `;

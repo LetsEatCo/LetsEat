@@ -1,5 +1,5 @@
 import {bindActionCreators} from 'redux';
-import {addProductToCartAction} from '@/store/actions/cart.actions';
+import {addItemToCartAction} from '@/store/actions/cart.actions';
 import {connect} from 'react-redux';
 import React from 'react';
 import {SubmissionError} from 'redux-form';
@@ -7,27 +7,27 @@ import {StyledModal} from '@/components/Modals/index';
 import {AddProductToCartForm} from '@/components/Forms/AddProductToCartForm';
 import {ProductModal as Product} from '@/components/Modals/blocks/ProductModal';
 
-interface ProductProps {
+interface Props {
 	product: any;
 	addProductToCartAction?: any;
 	uuidKey: string;
 }
 
-interface ProductState {
+interface State {
 	showModal: boolean;
 }
 
 const getParent = () => document.querySelector('body') as HTMLElement;
 
 const mapDispatchToProps = dispatch => ({
-	addProductToCartAction: bindActionCreators(addProductToCartAction, dispatch),
+	addProductToCartAction: bindActionCreators(addItemToCartAction, dispatch),
 });
 
 export const ProductModal = connect(
 	null,
 	mapDispatchToProps,
 )(
-	class extends React.Component<ProductProps, ProductState> {
+	class extends React.Component<Props, State> {
 		constructor(props) {
 			super(props);
 			this.handleOpenModal = this.handleOpenModal.bind(this);

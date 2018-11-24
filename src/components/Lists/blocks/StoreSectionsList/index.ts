@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Flex} from 'rebass';
 
-export const StoreSectionsList = styled(Flex)`
+export const StoreSectionsList: any = styled(Flex)`
 	width: 100%;
 	flex-wrap: wrap;
 	flex-direction: column;

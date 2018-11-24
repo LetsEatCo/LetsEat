@@ -6,7 +6,7 @@ const ButtonModifiers = {
 	green: ({theme}) => `
     background-color: ${theme.colors.Cta};
     color: ${theme.colors.White};
-    	border: none;
+    border: none;
   `,
 
 	white: ({theme}) => `
@@ -16,10 +16,14 @@ const ButtonModifiers = {
   `,
 
 	large: () => `
-	letter-spacing: 1px;
-	font-weight: 600;
-	font-size: ${fontScale(-1)};
-	padding: 0 20px;
+		letter-spacing: 1px;
+		font-weight: 600;
+		font-size: ${fontScale(-1)};
+		padding: 0 20px;
+	`,
+
+	fullWidth: () => `
+		width: 100%
 	`,
 };
 
@@ -28,5 +32,15 @@ export const Button: any = styled.button`
 	border-radius: 32px;
 	border: none;
 	text-transform: uppercase;
+	${applyStyleModifiers(ButtonModifiers)};
+`;
+
+export const ButtonFlex: any = styled.button`
+	height: 48px;
+	border-radius: 32px;
+	border: none;
+	text-transform: uppercase;
+	display: flex;
+	align-items: center;
 	${applyStyleModifiers(ButtonModifiers)};
 `;

@@ -1,10 +1,15 @@
-import {CART_ADD_PRODUCT} from '@/store/constants';
+import {CUSTOMER_ADD_ITEM_TO_CART, CUSTOMER_REMOVE_ITEM_FROM_CART} from '@/store/constants';
 
-export const addProductToCartAction = (values, resolve, reject) => ({
-	type: CART_ADD_PRODUCT,
+export const addItemToCartAction = (values, resolve, reject) => ({
+	type: CUSTOMER_ADD_ITEM_TO_CART,
 	payload: values,
 	meta: {
 		resolve,
 		reject,
 	},
+});
+
+export const removeItemFromCartAction = values => ({
+	type: CUSTOMER_REMOVE_ITEM_FROM_CART,
+	payload: values,
 });

@@ -5,7 +5,7 @@ import {theme} from '@/utils/ui/theme';
 import {fontScale} from '@/utils/ui';
 import {default as NextLink} from 'next/link';
 
-const StoreList = styled(Flex)`
+const StoreList: any = styled(Flex)`
 	width: 100%;
 	flex-wrap: wrap;
 	flex-direction: row;

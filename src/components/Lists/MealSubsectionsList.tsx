@@ -11,7 +11,7 @@ const Subsection = styled.div`
 	margin-bottom: 28px;
 `;
 
-const SubsectionName = styled(Text)`
+const SubsectionName: any = styled(Text)`
 	text-transform: uppercase;
 	font-weight: 500;
 	font-size: ${fontScale(-1)};
@@ -43,7 +43,7 @@ const SubsectionOptionName = styled.label`
 	color: ${props => props.theme.colors.Text};
 `;
 
-const SubsectionOptionPrice = styled(Text)`
+const SubsectionOptionPrice: any = styled(Text)`
 	margin-left: auto;
 	color: ${props => props.theme.colors.LightText};
 	font-size: ${fontScale(-1)};

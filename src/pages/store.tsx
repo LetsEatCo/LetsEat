@@ -4,23 +4,35 @@ import {theme} from '@/utils/ui/theme';
 import {http} from '@/services/http.service';
 import {Container} from '@/components/Common/Container';
 import {StoreBanner} from '@/components/Store/blocks/StoreBanner';
-import StoreBar from '@/components/Store/blocks/StoreBar';
 import {StoreInformations} from '@/components/Store/blocks/StoreInformations';
 import {connect} from 'react-redux';
 import {default as NextLink} from 'next/link';
 import {createStoreSectionsList} from '@/components/Lists/StoreSectionsList';
 import {StoreSectionsList} from '@/components/Lists/blocks/StoreSectionsList';
+import {StoreBar} from '@/components/Store/StoreBar';
+import Cookies from 'universal-cookie';
 
 interface StorePageProps {
 	store: any;
 	storeData: any;
 	cuisineSlug: string;
 	itemsCount: number;
+	hasItems: boolean;
+	cart: any;
 }
+
+interface StorePageState {
+	showCart: boolean;
+}
+
+type Props = Readonly<Partial<StorePageProps>>;
+
+type State = Readonly<Partial<StorePageState>>;
 
 const mapStateToProps = state => {
 	return {
-		itemsCount: state.cart.itemsCount,
+		itemsCount: state.customer.cart ? state.customer.cart.itemsCount : 0,
+		hasItems: state.customer.cart ? state.customer.cart.itemsCount > 0 : false,
 	};
 };
 
@@ -30,14 +42,26 @@ const CuisineLink = ({href, text}) => (
 	</NextLink>
 );
 
-class StorePage extends React.Component<Readonly<Partial<StorePageProps>>> {
-	static async getInitialProps({query}): Promise<{storeData: any; cuisineSlug: string}> {
-		const res = await http()
+class StorePage extends React.Component<Props, State> {
+	constructor(props) {
+		super(props);
+	}
+
+	static async getInitialProps({query}): Promise<{storeData: any; cuisineSlug: string; cart: any}> {
+		const store = await http()
 			.get('/stores/', {params: {slug: query.slug}})
 			.toPromise();
+		let customer;
+
+		if (new Cookies().get('JWT')) {
+			customer = await http()
+				.get('/customers/me')
+				.toPromise();
+		}
 		return {
-			storeData: res.data,
-			cuisineSlug: res.data.cuisines[0] || '',
+			storeData: store.data,
+			cuisineSlug: store.data.cuisines[0] || '',
+			cart: customer ? customer.data.cart : {},
 		};
 	}
 
@@ -45,11 +69,11 @@ class StorePage extends React.Component<Readonly<Partial<StorePageProps>>> {
 		return (
 			<StoreLayout headerBackgroundColor={theme.colors.White}>
 				<StoreBanner />
-				<StoreBar>
-					<Container flexDirection={'row'} alignItems={'center'}>
-						<StoreBar.CartButton>{this.props.itemsCount} Items</StoreBar.CartButton>
-					</Container>
-				</StoreBar>
+				<StoreBar
+					hasItems={this.props.hasItems}
+					itemsCount={this.props.itemsCount}
+					cart={this.props.cart}
+				/>
 				<Container flexDirection={'column'}>
 					<StoreInformations>
 						<StoreInformations.Details>

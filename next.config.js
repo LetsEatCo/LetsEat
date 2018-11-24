@@ -6,6 +6,9 @@ const TsConfigPathsPlugin = require('awesome-typescript-loader').TsConfigPathsPl
 module.exports = withTypescript(withCSS({
 	cssModules: true,
 	webpack: (config) => {
+		config.node = {
+			fs: 'empty'
+		};
 		config.module.rules.push(
 			{
 				resolve: {

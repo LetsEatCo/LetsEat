@@ -15,7 +15,8 @@
     ],
     "file-name-casing": false,
     "quotemark": ["jsx-single", "jsx-double"],
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false
   },
   "linterOptions": {
     "exclude": [
