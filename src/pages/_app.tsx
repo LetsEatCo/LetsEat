@@ -30,13 +30,15 @@ export default withRedux(makeStore, {debug: true})(
 			const {Component, pageProps, store} = this.props;
 			return (
 				<Container>
-					<Provider store={store}>
-						<PersistGate persistor={store.__PERSISTOR__} loading={<div>Loading</div>}>
-							<ThemeProvider theme={theme}>
-								<Component {...pageProps} />
-							</ThemeProvider>
-						</PersistGate>
-					</Provider>
+					<main>
+						<Provider store={store}>
+							<PersistGate persistor={store.__PERSISTOR__} loading={<div>Loading</div>}>
+								<ThemeProvider theme={theme}>
+									<Component {...pageProps} />
+								</ThemeProvider>
+							</PersistGate>
+						</Provider>
+					</main>
 				</Container>
 			);
 		}

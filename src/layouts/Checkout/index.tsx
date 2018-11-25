@@ -4,7 +4,7 @@ import {Footer} from '@/components/Footer/Footer';
 import {theme} from '@/utils/ui/theme';
 import {LayoutProps} from '@/typings/layout.props';
 
-export default class StoreLayout extends React.Component<LayoutProps> {
+export default class CheckoutLayout extends React.Component<LayoutProps> {
 	constructor(props) {
 		super(props);
 	}
@@ -12,7 +12,7 @@ export default class StoreLayout extends React.Component<LayoutProps> {
 	render(): ReactNode {
 		return (
 			<div>
-				<Head />
+				<Head title={'Checkout'} />
 				<Header headerBackgroundColor={theme.colors.White} sticky={false} />
 				{this.props.children}
 				<Footer />

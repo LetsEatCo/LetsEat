@@ -17,9 +17,15 @@ app
 	.then(() => {
 		const server = new Koa();
 		const router = new Router();
+		server.use(universalCookie());
 
 		router.get('/store/:slug', async ctx => {
 			await app.render(ctx.req, ctx.res, '/store', ctx.params);
+			ctx.respond = false;
+		});
+
+		router.get('/store/:slug/checkout', async ctx => {
+			await app.render(ctx.req, ctx.res, '/store/checkout', ctx.params);
 			ctx.respond = false;
 		});
 
@@ -38,7 +44,6 @@ app
 			await next();
 		});
 
-		server.use(universalCookie());
 		server.use(router.routes());
 		server.listen(config.get('app.port'), () => {
 			console.log(`> Ready on port :${config.get('app.port')}`);

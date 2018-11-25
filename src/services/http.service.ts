@@ -2,15 +2,19 @@ import axios, {AxiosResponse} from 'axios';
 import {Observable} from 'rxjs';
 import Cookies from 'universal-cookie';
 
-export const http = () => {
-	const cookies = new Cookies();
+export const http = (req: any = null) => {
+	let cookies;
+	if (req && req.headers) {
+		cookies = new Cookies(req.headers.cookie);
+	} else {
+		cookies = new Cookies();
+	}
 	const defaultOptions = {
 		baseURL: CONFIG.api.baseUrl,
 		headers: {
 			Authorization: cookies.get('JWT') ? `Bearer ${cookies.get('JWT')}` : '',
 		},
 	};
-
 	return {
 		get: (url, options = {}): Observable<AxiosResponse> => {
 			return Observable.create(async obs =>

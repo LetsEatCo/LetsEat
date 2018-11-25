@@ -3,15 +3,22 @@ import {default as NextHead} from 'next/head';
 // @ts-ignore
 import normalize from 'modern-normalize';
 
-export class Head extends React.Component {
+interface Props {
+	title?: string;
+}
+export class Head extends React.Component<Props> {
 	constructor(props) {
 		super(props);
 	}
 
+	static defaultProps = {
+		title: "Let's Eat",
+	};
+
 	render() {
 		return (
 			<NextHead>
-				<title>Let's Eat</title>
+				<title>{this.props.title}</title>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
 				<style jsx={true} global={true}>
 					{normalize}
