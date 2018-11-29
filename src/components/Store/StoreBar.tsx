@@ -10,6 +10,9 @@ import {theme} from '@/utils/ui/theme';
 import {bindActionCreators} from 'redux';
 import {removeItemFromCartAction} from '@/store/actions/cart.actions';
 import {isArrayEmpty} from '@/utils';
+import {default as NextLink} from 'next/link';
+import {Link} from '@/components/Common/Link';
+import {isIterable} from 'rxjs/internal-compatibility';
 
 const mapStateToProps = state => {
 	return {
@@ -21,6 +24,12 @@ const mapDispatchToProps = dispatch => {
 	return {
 		removeItemFromCartAction: bindActionCreators(removeItemFromCartAction, dispatch),
 	};
+};
+
+const shouldDisplayCartModal = (cart, showCart) => {
+	return isIterable(cart.meals) && isIterable(cart.products)
+		? !isArrayEmpty([...cart.meals, ...cart.products]) && showCart
+		: false;
 };
 
 export const StoreBar = connect(
@@ -43,7 +52,9 @@ export const StoreBar = connect(
 			this.props.removeItemFromCartAction(values);
 		};
 
-		hideCart = () => this.setState({showCart: false});
+		hideCart = () => {
+			setTimeout(() => this.setState({showCart: false}), 2000);
+		};
 
 		createCartItemsList = ({meals}: any) =>
 			meals.map((meal, index) => (
@@ -69,39 +80,54 @@ export const StoreBar = connect(
 				<StoreBarBlock>
 					<Container flexDirection={'row'} alignItems={'center'}>
 						<Wrapper onMouseEnter={this.showCart} onMouseLeave={this.hideCart}>
-							<StoreBarBlock.CartButton hasItems={this.props.hasItems}>
-								<ReactSVG
-									src={'https://s3.eu-west-3.amazonaws.com/lets-eat-co/assets/icon-cart.svg'}
-									svgStyle={{color: this.props.hasItems ? '#FFF' : '#000', width: '18px'}}
-								/>
-								<StoreBarBlock.CartButton.VerticalSeparator />
-								{this.props.itemsCount} Items
-							</StoreBarBlock.CartButton>
-							{!isArrayEmpty([...this.props.cart.meals, ...this.props.cart.products]) &&
-								this.state.showCart && (
-									<CartModal>
-										<Wrapper modifiers={['overflowXScroll']}>
-											<CartModal.Container>
-												<CartModal.HeaderText>Order</CartModal.HeaderText>
-											</CartModal.Container>
-
-											<CartModal.ItemsList>
-												{this.createCartItemsList(this.props.cart)}
-											</CartModal.ItemsList>
-										</Wrapper>
-										<Wrapper>
-											<CartModal.Container>
-												<CartModal.Total>
-													<div style={{fontSize: fontScale(1)}}>Total</div>
-													<CartModal.Total.Price>
-														{this.props.cart.totalPrice}€{' '}
-													</CartModal.Total.Price>
-												</CartModal.Total>
-											</CartModal.Container>
-											<CartModal.CheckoutButton>Checkout</CartModal.CheckoutButton>
-										</Wrapper>
-									</CartModal>
-								)}
+							<NextLink
+								as={`/store/${this.props.storeSlug}/checkout`}
+								href={`/store/checkout?slug=${this.props.storeSlug}`}
+								passHref={true}
+							>
+								<Link>
+									<StoreBarBlock.CartButton hasItems={this.props.hasItems}>
+										<ReactSVG
+											src={'https://s3.eu-west-3.amazonaws.com/lets-eat-co/assets/icon-cart.svg'}
+											svgStyle={{color: this.props.hasItems ? '#FFF' : '#000', width: '18px'}}
+										/>
+										<StoreBarBlock.CartButton.VerticalSeparator />
+										{this.props.itemsCount} Items
+									</StoreBarBlock.CartButton>
+								</Link>
+							</NextLink>
+							{shouldDisplayCartModal(this.props.cart, this.state.showCart) && (
+								<CartModal onMouseEnter={this.showCart} onMouseLeave={this.hideCart}>
+									<Wrapper modifiers={['overflowXScroll']}>
+										<CartModal.Container>
+											<CartModal.HeaderText>Order</CartModal.HeaderText>
+										</CartModal.Container>
+										<CartModal.ItemsList>
+											{this.createCartItemsList(this.props.cart)}
+										</CartModal.ItemsList>
+									</Wrapper>
+									<Wrapper>
+										<CartModal.Container>
+											<CartModal.Total>
+												<div style={{fontSize: fontScale(1)}}>Total</div>
+												<CartModal.Total.Price>
+													{this.props.cart.totalPrice}€{' '}
+												</CartModal.Total.Price>
+											</CartModal.Total>
+										</CartModal.Container>
+										<NextLink
+											as={`/store/${this.props.storeSlug}/checkout`}
+											href={`/store/checkout?slug=${this.props.storeSlug}`}
+											passHref={true}
+											prefetch={true}
+										>
+											<Link>
+												<CartModal.CheckoutButton>Checkout</CartModal.CheckoutButton>
+											</Link>
+										</NextLink>
+									</Wrapper>
+								</CartModal>
+							)}
 						</Wrapper>
 					</Container>
 				</StoreBarBlock>

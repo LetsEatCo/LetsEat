@@ -6,22 +6,25 @@ const env: any = process.env.NODE_ENV;
 
 const development = {
 	app: {
-		port: process.env.DEV_APP_PORT || 9090
+		port: process.env.DEV_APP_PORT || 9090,
 	},
 	api: {
-		baseUrl: process.env.DEV_API_BASE_URL || 'http://localhost'
-	}
+		baseUrl: process.env.DEV_API_BASE_URL || 'http://localhost',
+	},
+	stripe: {
+		publishableKey: process.env.DEV_STRIPE_PUBLISHABLE_KEY,
+	},
 };
 
 const test = {
 	app: {
-		port: process.env.TEST_APP_PORT || 9090
-	}
+		port: process.env.TEST_APP_PORT || 9090,
+	},
 };
 
-const config: any = {
+export const config: any = {
 	development,
-	test
+	test,
 };
 
 export default config[env];

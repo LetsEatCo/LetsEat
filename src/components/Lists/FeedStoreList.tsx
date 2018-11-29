@@ -14,7 +14,7 @@ const StoreList: any = styled(Flex)`
 `;
 
 const Store = styled(Flex)`
-	flex: 0 1 calc(33.33333333333333% - 24px);
+	flex: 0 1 calc(100% / 3 - 24px);
 	flex-direction: column;
 	margin-top: 36px;
 `;
@@ -51,23 +51,16 @@ const StoreDescription = styled.div`
 
 export {StoreList};
 
-export const createStoreList = (stores: any[]) => {
-	const list: any = [];
-
-	for (const [index, store] of stores.entries()) {
-		list.push(
-			<Store key={index}>
-				<NextLink as={`/store/${store.slug}`} href={`/store?slug=${store.slug}`} passHref={true}>
-					<StoreLink>
-						<StoreCardImage />
-						<StoreDescription>
-							<StoreDescriptionName as={'h3'}>{store.name}</StoreDescriptionName>
-						</StoreDescription>
-					</StoreLink>
-				</NextLink>
-			</Store>,
-		);
-	}
-
-	return list;
-};
+export const createStoreList = (stores: any[]) =>
+	stores.map((store, index) => (
+		<Store key={index}>
+			<NextLink as={`/store/${store.slug}`} href={`/store?slug=${store.slug}`} passHref={true}>
+				<StoreLink>
+					<StoreCardImage />
+					<StoreDescription>
+						<StoreDescriptionName as={'h3'}>{store.name}</StoreDescriptionName>
+					</StoreDescription>
+				</StoreLink>
+			</NextLink>
+		</Store>
+	));

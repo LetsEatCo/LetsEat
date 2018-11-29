@@ -1,5 +1,9 @@
 import Cookies from 'universal-cookie';
 
 export const isCustomerLoggedIn = (req?) => {
-	return req.universalCookies ? !!req.universalCookies.get('JWT') : !!new Cookies().get('JWT');
+	if (req && req.headers) {
+		const cookies = new Cookies(req.headers.cookie);
+		return !!cookies.get('JWT');
+	}
+	return !!new Cookies().get('JWT');
 };

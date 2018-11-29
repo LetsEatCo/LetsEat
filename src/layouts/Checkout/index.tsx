@@ -1,6 +1,5 @@
 import {default as React, ReactNode} from 'react';
 import {Head, Header} from '@/components/Header';
-import {Footer} from '@/components/Footer/Footer';
 import {theme} from '@/utils/ui/theme';
 import {LayoutProps} from '@/typings/layout.props';
 
@@ -15,7 +14,6 @@ export default class CheckoutLayout extends React.Component<LayoutProps> {
 				<Head title={'Checkout'} />
 				<Header headerBackgroundColor={theme.colors.White} sticky={false} />
 				{this.props.children}
-				<Footer />
 			</div>
 		);
 	}

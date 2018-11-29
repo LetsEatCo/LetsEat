@@ -11,6 +11,7 @@ import {createStoreSectionsList} from '@/components/Lists/StoreSectionsList';
 import {StoreSectionsList} from '@/components/Lists/blocks/StoreSectionsList';
 import {StoreBar} from '@/components/Store/StoreBar';
 import Cookies from 'universal-cookie';
+import Router from 'next/router';
 
 interface StorePageProps {
 	store: any;
@@ -65,6 +66,13 @@ class StorePage extends React.Component<Props, State> {
 		};
 	}
 
+	componentDidMount() {
+		Router.beforePopState(({as}) => {
+			window.location.href = as;
+			return false;
+		});
+	}
+
 	render() {
 		return (
 			<StoreLayout headerBackgroundColor={theme.colors.White}>
@@ -73,6 +81,7 @@ class StorePage extends React.Component<Props, State> {
 					hasItems={this.props.hasItems}
 					itemsCount={this.props.itemsCount}
 					cart={this.props.cart}
+					storeSlug={this.props.storeData.slug}
 				/>
 				<Container flexDirection={'column'}>
 					<StoreInformations>

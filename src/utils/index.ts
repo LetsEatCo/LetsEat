@@ -4,3 +4,5 @@ export {isObjectEmpty} from './is-object-empty.util';
 export {isArrayEmpty} from './is-array-empty.util';
 export {isCustomerLoggedIn} from './is-customer-logged-in.util';
 export {parseCookieString} from './parse-cookie-string.util';
+export {formatAddress} from './format-address.util';
+export {isIterable} from './is-iterable.util';

@@ -7,7 +7,7 @@ interface Props extends ReactModal.Props {
 	className?: string;
 }
 
-const ReactModalAdapter: React.SFC<Props> = ({className, ...props}) => {
+const ReactModalAdapter: React.FunctionComponent<Props> = ({className, ...props}) => {
 	const contentClassName = `${className}__content`;
 	const bodyClassName = `${className}__body`;
 	const overlayClassName = `${className}__overlay`;
