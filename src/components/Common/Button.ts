@@ -33,7 +33,7 @@ const ButtonModifiers = {
 };
 
 export const Button: any = styled(RebassButton)<any>`
-	height: ${props => (props.height ? props.height : '48px')};
+	height: ${({height}) => (height ? height : '48px')};
 	border-radius: 32px;
 	border: none;
 	text-transform: uppercase;
@@ -42,8 +42,8 @@ export const Button: any = styled(RebassButton)<any>`
 	${applyStyleModifiers(ButtonModifiers)};
 `;
 
-export const ButtonFlex: any = styled.button`
-	height: 48px;
+export const ButtonFlex: any = styled.button<{height: string}>`
+	height: ${({height}) => (height ? height : '48px')};
 	border-radius: 32px;
 	border: none;
 	text-transform: uppercase;

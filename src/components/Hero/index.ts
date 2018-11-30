@@ -2,9 +2,11 @@ import styled from 'styled-components';
 import {Box, Flex, Text} from 'rebass';
 import {BlackLogo} from '@/components/Logo';
 
+const applyBorderBottom = (borderBottom) => `border-bottom: ${borderBottom}`;
 const Hero: any = styled(Box)<any>`
 	margin: 0 auto;
 	height: ${props => props.height || '540px'};
+	${({borderBottom}) => applyBorderBottom(borderBottom)}
 `;
 
 const Title = styled(Text)<any>`
@@ -12,6 +14,7 @@ const Title = styled(Text)<any>`
 `;
 
 const Paragraph = styled(Text)<any>`
+	position: ${props => props.position || 'relative'};
 	margin: 0;
 `;
 
@@ -26,6 +29,7 @@ const Container = styled(Flex)`
 	height: 100%;
 	max-width: 1024px;
 	margin: 0 auto;
+	position: relative;
 `;
 
 Hero.Container = Container;

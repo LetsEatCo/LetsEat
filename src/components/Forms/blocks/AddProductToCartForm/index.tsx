@@ -36,11 +36,11 @@ AddProductToCartForm.Header = props => (
 		mb={28}
 	/>
 );
-AddProductToCartForm.Header.ProductName = props => (
+AddProductToCartForm.Header.OrderStoreName = props => (
 	<Text fontSize={fontScale(2)} color={'Text'} children={props.children} mb={20} />
 );
 
-AddProductToCartForm.Header.ProductDescription = props => (
+AddProductToCartForm.Header.OrderDescription = props => (
 	<Text fontSize={fontScale(0)} color={'LightText'} fontWeight={'400'} children={props.children} />
 );
 AddProductToCartForm.Upper = Upper;
