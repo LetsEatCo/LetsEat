@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Box, Flex, Text} from 'rebass';
 import {BlackLogo} from '@/components/Logo';
 
-const applyBorderBottom = (borderBottom) => `border-bottom: ${borderBottom}`;
+const applyBorderBottom = borderBottom => `border-bottom: ${borderBottom}`;
 const Hero: any = styled(Box)<any>`
 	margin: 0 auto;
 	height: ${props => props.height || '540px'};

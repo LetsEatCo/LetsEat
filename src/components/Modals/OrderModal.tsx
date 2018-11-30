@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyledModal} from '@/components/Modals/index';
 import {OrderModal as Order} from '@/components/Modals/blocks/OrderModal';
 import {ButtonFlex} from '@/components/Common/Button';
 import {default as NextLink} from 'next/link';
@@ -10,13 +9,7 @@ interface Props {
 	order: any;
 }
 
-interface State {
-	showModal: boolean;
-}
-
-const getParent = () => document.querySelector('body') as HTMLElement;
-
-class OrderModal extends React.Component<Props, State> {
+class OrderModal extends React.Component<Props> {
 	constructor(props) {
 		super(props);
 		console.log(props);
@@ -53,21 +46,19 @@ class OrderModal extends React.Component<Props, State> {
 						<Flex justifyContent={'space-between'} alignItems={'center'}>
 							<Flex alignItems={'center'}>
 								<Order.Price>{this.props.order.totalPaid} €</Order.Price>
-								<div
-									style={{
-										width: '1px',
-										height: '18px',
-										backgroundColor: 'rgb(224, 224, 224)',
-										marginRight: '8px',
-										marginLeft: '8px',
-									}}
-								/>
-								<p
-									style={{fontSize: '12px', textTransform: 'uppercase'}}
-									onClick={this.handleOpenModal}
-								>
-									View Receipt
-								</p>
+								{/*<div*/}
+								{/*style={{*/}
+								{/*width: '1px',*/}
+								{/*height: '18px',*/}
+								{/*backgroundColor: 'rgb(224, 224, 224)',*/}
+								{/*marginRight: '8px',*/}
+								{/*marginLeft: '8px',*/}
+								{/*/>*/}
+								{/*<p*/}
+								{/*style={{fontSize: '12px', textTransform: 'uppercase'}}*/}
+								{/*>*/}
+								{/*View Receipt*/}
+								{/*</p>*/}
 							</Flex>
 							<div>
 								<NextLink
@@ -85,12 +76,6 @@ class OrderModal extends React.Component<Props, State> {
 						</Flex>
 					</Order.Informations>
 				</Order>
-				<StyledModal isOpen={this.state.showModal} ariaHideApp={false} parentSelector={getParent}>
-					{/*<AddProductToCartForm*/}
-					{/*handleClose={this.handleCloseModal}*/}
-					{/*data={this.props.product}*/}
-					{/*/>*/}
-				</StyledModal>
 			</>
 		);
 	}
