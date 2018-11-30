@@ -8,6 +8,8 @@ import RegistrationForm from '@/components/Forms/RegistrationForm';
 import {default as StyledHeader} from '@/components/Header/blocks/Header';
 import {bindActionCreators} from 'redux';
 import {customerLoginAction, customerRegisterationAction} from '@/store/actions/customer.actions';
+import ReactSVG from 'react-svg';
+import {ProfileModalComponent} from '@/components/Modals/ProfileModal';
 
 interface HeaderProps {
 	isLoggedIn?: boolean;
@@ -19,13 +21,9 @@ interface HeaderProps {
 	sticky: boolean;
 }
 
-const Link = ({href}) => (
-	<NextLink href={href} passHref={true}>
-		<StyledHeader.Link>
-			<BlackLogoNoFork />
-		</StyledHeader.Link>
-	</NextLink>
-);
+interface State {
+	showProfileModal?: boolean;
+}
 
 function mapStateToProps(state) {
 	return {
@@ -40,12 +38,40 @@ function mapDispatchToProps(dispatch) {
 	};
 }
 
-class Header extends React.Component<HeaderProps> {
+class Header extends React.Component<HeaderProps, State> {
 	constructor(props) {
 		super(props);
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.handleClickOutside = this.handleClickOutside.bind(this);
 		this.handleLoginFormSubmit = this.handleLoginFormSubmit.bind(this);
 		this.handleRegisterFormSubmit = this.handleRegisterFormSubmit.bind(this);
 	}
+
+	state = {
+		showProfileModal: false,
+	};
+
+	componentDidMount() {
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('mousedown', this.handleClickOutside);
+	}
+
+	showProfileModal = () => this.setState({showProfileModal: true});
+
+	hideProfileModal = () => this.setState({showProfileModal: false});
+
+	setWrapperRef = node => {
+		this.wrapperRef = node;
+	};
+
+	handleClickOutside = event => {
+		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+			this.hideProfileModal();
+		}
+	};
 
 	async handleLoginFormSubmit(values) {
 		try {
@@ -80,7 +106,11 @@ class Header extends React.Component<HeaderProps> {
 			>
 				<StyledHeader.Container>
 					<StyledHeader.Left>
-						<Link href={'/feed'} />
+						<NextLink href={'/feed'} passHref={true}>
+							<StyledHeader.Link>
+								<BlackLogoNoFork />
+							</StyledHeader.Link>
+						</NextLink>
 					</StyledHeader.Left>
 					<StyledHeader.Right>
 						{!this.props.isLoggedIn ? (
@@ -89,7 +119,14 @@ class Header extends React.Component<HeaderProps> {
 								<RegistrationForm onSubmit={this.handleRegisterFormSubmit} />
 							</>
 						) : (
-							<div />
+							<div style={{position: 'relative'}}>
+								<ReactSVG
+									src={'https://s3.eu-west-3.amazonaws.com/lets-eat-co/assets/icon-profile.svg'}
+									svgStyle={{width: '32px', cursor: 'pointer'}}
+									onClick={this.showProfileModal}
+								/>
+								{this.state.showProfileModal && <ProfileModalComponent ref={this.setWrapperRef} />}
+							</div>
 						)}
 					</StyledHeader.Right>
 				</StyledHeader.Container>
