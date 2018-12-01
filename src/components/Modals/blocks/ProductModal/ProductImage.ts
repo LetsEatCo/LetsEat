@@ -1,18 +1,14 @@
 import styled from 'styled-components';
 import {Card} from 'rebass';
 
-export const StoreBanner = styled(Card)`
+export const ProductImage = styled(Card)`
 	justify-content: center;
 	display: flex;
-	height: 280px;
-	perspective: 1px;
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 100%;
+	width: 140px;
 	background-color: #f6f6f6;
 	box-shadow: 0 2px 24px rgba(0, 0, 0, 0.05);
 	border-radius: 4px;
-	background-position: center center;
-	background-repeat: no-repeat;
 	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 `;

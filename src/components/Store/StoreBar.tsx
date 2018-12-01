@@ -26,9 +26,9 @@ const mapDispatchToProps = dispatch => {
 	};
 };
 
-const shouldDisplayCartModal = (cart, showCart) => {
+const shouldDisplayCartModal = (cart, showCart, belongsToStore) => {
 	return isIterable(cart.meals) && isIterable(cart.products)
-		? !isArrayEmpty([...cart.meals, ...cart.products]) && showCart
+		? !isArrayEmpty([...cart.meals, ...cart.products]) && showCart && belongsToStore
 		: false;
 };
 
@@ -86,17 +86,26 @@ export const StoreBar = connect(
 								passHref={true}
 							>
 								<Link>
-									<StoreBarBlock.CartButton hasItems={this.props.hasItems}>
+									<StoreBarBlock.CartButton
+										hasItems={this.props.hasItems && this.props.belongsToStore}
+									>
 										<ReactSVG
 											src={'https://s3.eu-west-3.amazonaws.com/lets-eat-co/assets/icon-cart.svg'}
-											svgStyle={{color: this.props.hasItems ? '#FFF' : '#000', width: '18px'}}
+											svgStyle={{
+												color: this.props.hasItems && this.props.belongsToStore ? '#FFF' : '#000',
+												width: '18px',
+											}}
 										/>
 										<StoreBarBlock.CartButton.VerticalSeparator />
 										{this.props.itemsCount} Items
 									</StoreBarBlock.CartButton>
 								</Link>
 							</NextLink>
-							{shouldDisplayCartModal(this.props.cart, this.state.showCart) && (
+							{shouldDisplayCartModal(
+								this.props.cart,
+								this.state.showCart,
+								this.props.belongsToStore,
+							) && (
 								<CartModal onMouseEnter={this.showCart} onMouseLeave={this.hideCart}>
 									<Wrapper modifiers={['overflowXScroll']}>
 										<CartModal.Container>

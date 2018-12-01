@@ -28,6 +28,7 @@ class OrderModal extends React.Component<Props> {
 		return (
 			<>
 				<Order>
+					<Order.Image backgroundImage={`url(${this.props.order.store.imageUrl})`} />
 					<Order.Informations>
 						<div>
 							<Order.StoreName>{this.props.order.store.name}</Order.StoreName>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Flex} from 'rebass';
 
-export const OrdersList = styled(Flex)`
+export const OrdersList = styled(Flex)<any>`
 	padding-top: 16px;
 	display: flex;
 	flex-wrap: wrap;
