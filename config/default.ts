@@ -14,6 +14,9 @@ const development = {
 	stripe: {
 		publishableKey: process.env.DEV_STRIPE_PUBLISHABLE_KEY,
 	},
+	mapbox: {
+		accessToken: process.env.MAPBOX_ACCESS_TOKEN,
+	},
 };
 
 const test = {
