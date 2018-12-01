@@ -5,6 +5,7 @@ import {env} from '@/utils';
 import dotenv from 'dotenv';
 import config from 'config';
 import universalCookie from 'universal-cookie-koa';
+import helmet from 'koa-helmet';
 
 dotenv.config();
 
@@ -17,7 +18,9 @@ app
 	.then(() => {
 		const server = new Koa();
 		const router = new Router();
+
 		server.use(universalCookie());
+		server.use(helmet());
 
 		router.get('/store/:slug', async ctx => {
 			await app.render(ctx.req, ctx.res, '/store', ctx.params);

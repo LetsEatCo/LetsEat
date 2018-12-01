@@ -11,6 +11,7 @@ export const customer = (state = {}, action) => {
 		case CUSTOMER_REGISTRATION_OR_LOGIN_REQUEST_SUCCEEDED:
 			new Cookies().set('JWT', action.payload.data.jwt, {
 				expires: new Date(action.payload.data.exp * 1000),
+				path: '/',
 			});
 			return {
 				...state,

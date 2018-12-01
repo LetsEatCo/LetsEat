@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 
 export const http = (req: any = null) => {
 	let cookies;
-	if (req && req.headers) {
+	if (req && req.headers && req.headers.cookie) {
 		cookies = new Cookies(req.headers.cookie);
 	} else {
 		cookies = new Cookies();
