@@ -12,7 +12,6 @@ interface Props {
 class OrderModal extends React.Component<Props> {
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.handleOpenModal = this.handleOpenModal.bind(this);
 		this.handleCloseModal = this.handleCloseModal.bind(this);
 	}
