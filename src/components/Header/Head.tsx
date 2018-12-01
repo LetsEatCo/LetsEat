@@ -23,7 +23,10 @@ export class Head extends React.Component<Props> {
 		title: "Let's Eat",
 		scripts: [{id: 'stripe-js', src: 'https://js.stripe.com/v3/', async: true}],
 		links: [
-			{id: 'mapbox-gl-css', href: 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css'},
+			{
+				id: 'mapbox-gl-css',
+				href: 'https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css',
+			},
 		],
 	};
 
@@ -37,9 +40,9 @@ export class Head extends React.Component<Props> {
 						<script id={script.id} src={script.src} async={script.async} key={index} />
 					))}
 				{this.props.links &&
-				this.props.links.map((link, index) => (
-					<link id={link.id} href={link.href} key={index} rel='stylesheet'/>
-				))}
+					this.props.links.map((link, index) => (
+						<link id={link.id} href={link.href} key={index} rel="stylesheet" />
+					))}
 				<style jsx={true} global={true}>
 					{normalize}
 				</style>

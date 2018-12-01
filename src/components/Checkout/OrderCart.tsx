@@ -25,18 +25,25 @@ export default connect()(
 		constructor(props) {
 			super(props);
 			this.removeCartItem = this.removeCartItem.bind(this);
+			this.shouldDisplayMap = this.shouldDisplayMap.bind(this);
 		}
 
 		removeCartItem: any = values => {
 			this.props.removeItemFromCartAction(values);
 		};
+
+		shouldDisplayMap = () =>
+			!!this.props.storeData.address.latitude && !!this.props.storeData.address.longitude;
+
 		render() {
 			return (
 				<OrderCart>
-					<ReactMapGL
-						latitude={parseFloat(this.props.storeData.address.latitude)}
-						longitude={parseFloat(this.props.storeData.address.longitude)}
-					/>
+					{this.shouldDisplayMap() && (
+						<ReactMapGL
+							latitude={parseFloat(this.props.storeData.address.latitude)}
+							longitude={parseFloat(this.props.storeData.address.longitude)}
+						/>
+					)}
 					<OrderCart.Container>
 						<OrderCart.Store>
 							<Text fontSize={fontScale(0)}>{this.props.storeData.name}</Text>
