@@ -5,6 +5,14 @@ import {default as NextLink} from 'next/link';
 import {createOrderDetailList} from '@/components/Checkout/blocks/Order/DetailsList';
 import React from 'react';
 import {connect} from 'react-redux';
+import dynamic from 'next/dynamic';
+
+const ReactMapGL = dynamic(
+	import('@/components/Map/CheckoutMap' as any).then(m => {
+		m.default.__webpackChunkName = 'mapbox';
+		return m;
+	}),
+);
 
 interface OrderCartProps {
 	storeData: any;
@@ -17,14 +25,25 @@ export default connect()(
 		constructor(props) {
 			super(props);
 			this.removeCartItem = this.removeCartItem.bind(this);
+			this.shouldDisplayMap = this.shouldDisplayMap.bind(this);
 		}
 
 		removeCartItem: any = values => {
 			this.props.removeItemFromCartAction(values);
 		};
+
+		shouldDisplayMap = () =>
+			!!this.props.storeData.address.latitude && !!this.props.storeData.address.longitude;
+
 		render() {
 			return (
 				<OrderCart>
+					{this.shouldDisplayMap() && (
+						<ReactMapGL
+							latitude={parseFloat(this.props.storeData.address.latitude)}
+							longitude={parseFloat(this.props.storeData.address.longitude)}
+						/>
+					)}
 					<OrderCart.Container>
 						<OrderCart.Store>
 							<Text fontSize={fontScale(0)}>{this.props.storeData.name}</Text>
