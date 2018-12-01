@@ -10,7 +10,6 @@ import {default as NextLink} from 'next/link';
 import {createStoreSectionsList} from '@/components/Lists/StoreSectionsList';
 import {StoreSectionsList} from '@/components/Lists/blocks/StoreSectionsList';
 import {StoreBar} from '@/components/Store/StoreBar';
-import Cookies from 'universal-cookie';
 import Router from 'next/router';
 
 interface StorePageProps {
@@ -20,6 +19,7 @@ interface StorePageProps {
 	itemsCount: number;
 	hasItems: boolean;
 	cart: any;
+	cartBelongsToStore: boolean;
 }
 
 interface StorePageState {
@@ -48,21 +48,24 @@ class StorePage extends React.Component<Props, State> {
 		super(props);
 	}
 
-	static async getInitialProps({query}): Promise<{storeData: any; cuisineSlug: string; cart: any}> {
+	static async getInitialProps({
+		query,
+		req,
+	}): Promise<{storeData: any; cuisineSlug: string; cart: any; cartBelongsToStore: boolean}> {
 		const store = await http()
 			.get('/stores/', {params: {slug: query.slug}})
 			.toPromise();
-		let customer;
+		const customer = await http(req)
+			.get('/customers/me')
+			.toPromise();
 
-		if (new Cookies().get('JWT')) {
-			customer = await http()
-				.get('/customers/me')
-				.toPromise();
-		}
 		return {
 			storeData: store.data,
 			cuisineSlug: store.data.cuisines[0] || '',
 			cart: customer ? customer.data.cart : {},
+			cartBelongsToStore: customer.data.cart
+				? customer.data.cart.store.uuid === store.data.uuid
+				: false,
 		};
 	}
 
@@ -76,10 +79,15 @@ class StorePage extends React.Component<Props, State> {
 	render() {
 		return (
 			<StoreLayout headerBackgroundColor={theme.colors.White}>
-				<StoreBanner />
+				<div>
+					<StoreBanner backgroundImage={`url(${this.props.storeData.imageUrl})`} />
+				</div>
 				<StoreBar
+					belongsToStore={this.props.cartBelongsToStore}
 					hasItems={this.props.hasItems}
-					itemsCount={this.props.itemsCount}
+					itemsCount={
+						this.props.hasItems && this.props.cartBelongsToStore ? this.props.itemsCount : 0
+					}
 					cart={this.props.cart}
 					storeSlug={this.props.storeData.slug}
 				/>

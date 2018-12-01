@@ -15,15 +15,15 @@ export const ProfileModalComponent = React.forwardRef((props, ref) => {
 						</ProfileModal.MenuItemLink>
 					</NextLink>
 				</ProfileModal.MenuItemWrapper>
-				<ProfileModal.MenuItemWrapper>
-					<NextLink href={'/account'} passHref={true}>
-						<ProfileModal.MenuItemLink>
-							<ProfileModal.MenuItem>
-								<ProfileModal.MenuItemText>Account Settings</ProfileModal.MenuItemText>
-							</ProfileModal.MenuItem>
-						</ProfileModal.MenuItemLink>
-					</NextLink>
-				</ProfileModal.MenuItemWrapper>
+				{/*<ProfileModal.MenuItemWrapper>*/}
+				{/*<NextLink href={'/account'} passHref={true}>*/}
+				{/*<ProfileModal.MenuItemLink>*/}
+				{/*<ProfileModal.MenuItem>*/}
+				{/*<ProfileModal.MenuItemText>Account Settings</ProfileModal.MenuItemText>*/}
+				{/*</ProfileModal.MenuItem>*/}
+				{/*</ProfileModal.MenuItemLink>*/}
+				{/*</NextLink>*/}
+				{/*</ProfileModal.MenuItemWrapper>*/}
 			</ProfileModal.Menu>
 		</ProfileModal>
 	);

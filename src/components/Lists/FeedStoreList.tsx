@@ -34,6 +34,9 @@ const StoreCardImage = styled(Card)`
 	background-color: #f6f6f6;
 	box-shadow: 0 2px 24px rgba(0, 0, 0, 0.05);
 	border-radius: 4px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 `;
 
 const StoreDescriptionName = styled(Text)`
@@ -56,7 +59,7 @@ export const createStoreList = (stores: any[]) =>
 		<Store key={index}>
 			<NextLink as={`/store/${store.slug}`} href={`/store?slug=${store.slug}`} passHref={true}>
 				<StoreLink>
-					<StoreCardImage />
+					<StoreCardImage backgroundImage={`url(${store.imageUrl})`} />
 					<StoreDescription>
 						<StoreDescriptionName as={'h3'}>{store.name}</StoreDescriptionName>
 					</StoreDescription>

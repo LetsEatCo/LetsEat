@@ -4,6 +4,7 @@ import {ProductName} from '@/components/Modals/blocks/ProductModal/ProductName';
 import {ProductPrice} from '@/components/Modals/blocks/ProductModal/ProductPrice';
 import {ProductDescription} from '@/components/Modals/blocks/ProductModal/ProductDescription';
 import {ProductInformations} from '@/components/Modals/blocks/ProductModal/ProductInformations';
+import {ProductImage} from '@/components/Modals/blocks/ProductModal/ProductImage';
 
 const ProductModal: any = styled.div`
 	width: calc(50% - 17.5px);
@@ -27,5 +28,6 @@ ProductModal.Name = ProductName;
 ProductModal.Price = ProductPrice;
 ProductModal.Description = ProductDescription;
 ProductModal.Informations = ProductInformations;
+ProductModal.Image = ProductImage;
 
 export {ProductModal};

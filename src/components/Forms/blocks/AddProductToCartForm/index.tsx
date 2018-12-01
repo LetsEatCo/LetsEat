@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Box, Text} from 'rebass';
+import {Box, Card, Text} from 'rebass';
 import {Field} from '@/components/Forms/blocks/Common/Field';
 import {CheckboxField} from '@/components/Forms/blocks/Common/CheckboxField';
 import {Header} from '@/components/Forms/blocks/Common/Header';
@@ -15,9 +15,10 @@ import {
 	InputNumberIncreaseOrDecrease,
 } from '@/components/Forms/blocks/AddProductToCartForm/InputNumber';
 
-const AddProductToCartForm: any = styled(Box)`
-	max-width: 525px;
+const AddProductToCartWrapper: any = styled(Box)<any>`
 	max-height: 640px;
+	display: flex;
+	max-width: ${({hasImage}) => (hasImage ? '1060px' : '525px')};
 	position: fixed;
 	visibility: visible;
 	top: 50%;
@@ -28,6 +29,21 @@ const AddProductToCartForm: any = styled(Box)`
 	box-shadow: rgba(34, 34, 34, 0.15) 0 2px 20px 0;
 `;
 
+const AddProductToCartForm: any = styled(Box)`
+	max-width: 525px;
+	width: 525px;
+	display: inline-flex;
+	flex-direction: column;
+`;
+
+const AddProductToCartFormImage: any = styled(Card)`
+	width: 600px;
+	height: 640px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+`;
+
 AddProductToCartForm.Header = props => (
 	<Header
 		modifiers={['justifyContentFlexStart']}
@@ -36,11 +52,11 @@ AddProductToCartForm.Header = props => (
 		mb={28}
 	/>
 );
-AddProductToCartForm.Header.OrderStoreName = props => (
+AddProductToCartForm.Header.ProductName = props => (
 	<Text fontSize={fontScale(2)} color={'Text'} children={props.children} mb={20} />
 );
 
-AddProductToCartForm.Header.OrderDescription = props => (
+AddProductToCartForm.Header.ProductDescription = props => (
 	<Text fontSize={fontScale(0)} color={'LightText'} fontWeight={'400'} children={props.children} />
 );
 AddProductToCartForm.Upper = Upper;
@@ -59,5 +75,7 @@ AddProductToCartForm.InputNumber = InputNumber;
 AddProductToCartForm.InputNumberIncreaseOrDecrease = InputNumberIncreaseOrDecrease;
 
 AddProductToCartForm.CloseButton = CloseButton;
+AddProductToCartForm.Wrapper = AddProductToCartWrapper;
+AddProductToCartForm.Image = AddProductToCartFormImage;
 
 export {AddProductToCartForm};

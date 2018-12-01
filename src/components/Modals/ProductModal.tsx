@@ -80,6 +80,9 @@ export const ProductModal = connect(
 							</div>
 							<Product.Price>{this.props.product.price}€</Product.Price>
 						</Product.Informations>
+						{this.props.product.imageUrl && (
+							<Product.Image backgroundImage={`url(${this.props.product.imageUrl})`} />
+						)}
 					</Product>
 					<StyledModal isOpen={this.state.showModal} ariaHideApp={false} parentSelector={getParent}>
 						<AddProductToCartForm

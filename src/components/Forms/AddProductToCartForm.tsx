@@ -46,33 +46,38 @@ class AddProductToCartFormComponent extends React.Component<Props> {
 	render() {
 		return (
 			<Box mr={4}>
-				<Form as={'form'} onSubmit={this.props.handleSubmit}>
-					<Form.Upper>
-						<Form.Header>
-							<Box width={'100%' as any}>
-								<Form.Header.ProductName>{this.props.data.name}</Form.Header.ProductName>
-								<Form.Header.ProductDescription>
-									{this.props.data.description}
-								</Form.Header.ProductDescription>
-							</Box>
-							<Form.CloseButton onClick={this.props.handleClose} />
-						</Form.Header>
-						<Form.Body>
-							<Box>{createMealSubsectionsList(this.props.data.subsections)}</Box>
-						</Form.Body>
-					</Form.Upper>
-					<Form.Footer>
-						<Form.CheckboxField
-							name="quantity"
-							type="number"
-							id="quantity"
-							component={InputNumber}
-						/>
-						<Form.SubmitButton type="submit">
-							<span>Add to cart</span>
-						</Form.SubmitButton>
-					</Form.Footer>
-				</Form>
+				<Form.Wrapper hasImage={!!this.props.data.imageUrl}>
+					{!!this.props.data.imageUrl && (
+						<Form.Image backgroundImage={`url(${this.props.data.imageUrl})`} />
+					)}
+					<Form as={'form'} onSubmit={this.props.handleSubmit}>
+						<Form.Upper>
+							<Form.Header>
+								<Box width={'100%' as any}>
+									<Form.Header.ProductName>{this.props.data.name}</Form.Header.ProductName>
+									<Form.Header.ProductDescription>
+										{this.props.data.description}
+									</Form.Header.ProductDescription>
+								</Box>
+								<Form.CloseButton onClick={this.props.handleClose} />
+							</Form.Header>
+							<Form.Body>
+								<Box>{createMealSubsectionsList(this.props.data.subsections)}</Box>
+							</Form.Body>
+						</Form.Upper>
+						<Form.Footer>
+							<Form.CheckboxField
+								name="quantity"
+								type="number"
+								id="quantity"
+								component={InputNumber}
+							/>
+							<Form.SubmitButton type="submit">
+								<span>Add to cart</span>
+							</Form.SubmitButton>
+						</Form.Footer>
+					</Form>
+				</Form.Wrapper>
 			</Box>
 		);
 	}
