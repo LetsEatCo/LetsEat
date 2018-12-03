@@ -56,7 +56,7 @@ export default connect()(
 							</NextLink>
 						</OrderCart.Store>
 						<OrderCart.DetailsList>
-							{createOrderDetailList([...this.props.cart.meals], this.removeCartItem)}
+							{createOrderDetailList(this.props.cart, this.removeCartItem)}
 						</OrderCart.DetailsList>
 						<Flex flexDirection={'row'} justifyContent={'space-between'} pt={32} pb={16}>
 							<Text fontSize={fontScale(1)} fontWeight={500}>

@@ -61,6 +61,11 @@ export default connect(
 			constructor(props) {
 				super(props);
 				this.handleSubmit = this.handleSubmit.bind(this);
+				this.state = {
+					cardNumber: false,
+					cardExpiry: false,
+					cardCvc: false,
+				};
 			}
 
 			async componentWillUnmount() {
@@ -69,6 +74,9 @@ export default connect(
 
 			async handleSubmit(e: SyntheticEvent) {
 				e.preventDefault();
+				if (!this.isFormComplete()) {
+					return;
+				}
 				this.props.stripe
 					.createToken({
 						name: `${this.props.customer.firstName} ${this.props.customer.lastName}`,
@@ -80,6 +88,12 @@ export default connect(
 					.catch(err => console.log(err));
 			}
 
+			stripeElementChange = e => {
+				this.setState({[e.elementType]: !e.empty && e.complete});
+			};
+
+			isFormComplete = () => this.state.cardNumber && this.state.cardExpiry && this.state.cardCvc;
+
 			render() {
 				return (
 					<CheckoutFormSection display={this.props.display}>
@@ -89,17 +103,24 @@ export default connect(
 								<CardNumberElement
 									className={'CardNumberElement'}
 									placeholder={'Card number'}
+									onChange={this.stripeElementChange}
 									{...createOptions()}
 								/>
 								<CardExpiryElement
 									className={'CardExpiryElement'}
 									placeholder={'MM/YY'}
 									{...createOptions()}
+									onChange={this.stripeElementChange}
 								/>
-								<CardCVCElement className={'CardCVCElement'} {...createOptions()} />
+								<CardCVCElement
+									className={'CardCVCElement'}
+									{...createOptions()}
+									onChange={this.stripeElementChange}
+								/>
 							</StripeForm.ElementsWrapper>
 							<Button
-								modifiers={['green', 'large']}
+								modifiers={this.isFormComplete() ? ['green', 'large'] : ['disabled', 'large']}
+								disabled={!this.isFormComplete()}
 								onClick={this.handleSubmit}
 								width={'120px'}
 								height={'42px'}

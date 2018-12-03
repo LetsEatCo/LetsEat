@@ -56,7 +56,7 @@ export const StoreBar = connect(
 			setTimeout(() => this.setState({showCart: false}), 2000);
 		};
 
-		createCartItemsList = ({meals}: any) =>
+		createCartItemsList = ({meals, products}: any) => [
 			meals.map((meal, index) => (
 				<CartModal.Item key={index}>
 					<div>{meal.quantity}</div>
@@ -73,7 +73,25 @@ export const StoreBar = connect(
 						}}
 					/>
 				</CartModal.Item>
-			));
+			)),
+			products.map((product, index) => (
+				<CartModal.Item key={index}>
+					<div>{product.quantity}</div>
+					<CartModal.Item.Name>{product.product.name}</CartModal.Item.Name>
+					<CartModal.Item.Price>{product.product.price}€</CartModal.Item.Price>
+					<ReactSVG
+						onClick={() => this.removeCartItem({productUuid: product.uuid})}
+						src={'https://s3.eu-west-3.amazonaws.com/lets-eat-co/assets/icon-close.svg'}
+						svgStyle={{
+							color: theme.colors.Text,
+							width: '16px',
+							marginLeft: '16px',
+							cursor: 'pointer',
+						}}
+					/>
+				</CartModal.Item>
+			)),
+		];
 
 		render() {
 			return (
@@ -119,9 +137,7 @@ export const StoreBar = connect(
 										<CartModal.Container>
 											<CartModal.Total>
 												<div style={{fontSize: fontScale(1)}}>Total</div>
-												<CartModal.Total.Price>
-													{this.props.cart.totalPrice}€{' '}
-												</CartModal.Total.Price>
+												<CartModal.Total.Price>{this.props.cart.totalPrice}€</CartModal.Total.Price>
 											</CartModal.Total>
 										</CartModal.Container>
 										<NextLink

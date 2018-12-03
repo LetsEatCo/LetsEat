@@ -39,8 +39,8 @@ const OrderDetailRemoveItemAction = styled.span`
 	line-height: 1.5;
 	font-weight: 600;
 `;
-export const createOrderDetailList = (items: any[], removeCartItem: any) =>
-	items.map((item, index) => (
+export const createOrderDetailList = ({meals, products}, removeCartItem: any) => [
+	meals.map((item, index) => (
 		<OrderDetail key={index}>
 			<Flex justifyContent={'space-between'} fontSize={fontScale(-0.5)}>
 				<OrderDetailItemName>
@@ -62,4 +62,20 @@ export const createOrderDetailList = (items: any[], removeCartItem: any) =>
 				</OrderDetailRemoveItemAction>
 			</div>
 		</OrderDetail>
-	));
+	)),
+	products.map((item, index) => (
+		<OrderDetail key={index}>
+			<Flex justifyContent={'space-between'} fontSize={fontScale(-0.5)}>
+				<OrderDetailItemName>
+					{item.quantity} x {item.product.name}
+				</OrderDetailItemName>
+				<OrderDetailItemPrice>{item.product.price} € </OrderDetailItemPrice>
+			</Flex>
+			<div>
+				<OrderDetailRemoveItemAction onClick={() => removeCartItem({productUuid: item.uuid})}>
+					Remove
+				</OrderDetailRemoveItemAction>
+			</div>
+		</OrderDetail>
+	)),
+];

@@ -132,7 +132,7 @@ export default connect(
 			return this.setState({fulfillmentType: e.currentTarget.value});
 		};
 
-		placeOrder = () => {
+		placeOrder = async () => {
 			const data = {
 				totalToPay: this.props.cart.totalPrice,
 				deliveryAddress: this.props.checkout.deliveryAddress.address,
@@ -141,16 +141,30 @@ export default connect(
 				isDelivery: this.state.fulfillmentType === 'delivery',
 				isTakeAway: this.state.fulfillmentType === 'takeAway',
 			};
+			if (!this.isOrderPlaceable()) {
+				return;
+			}
 			return http()
 				.post('customers/me/orders', data)
 				.subscribe({
-					next: response => {
-						console.log(response);
+					next: () => {
+						return redirectToLogin(null, '/orders');
 					},
 					error: error => {
 						console.log(error);
 					},
 				});
+		};
+
+		private readonly isOrderPlaceable = () => {
+			if (this.state.fulfillmentType === 'delivery') {
+				return (
+					this.props.cart.totalPrice !== 0 &&
+					this.props.checkout.deliveryAddress.address !== '' &&
+					this.props.checkout.stripe.token.id
+				);
+			}
+			return this.props.cart.totalPrice !== 0 && this.props.checkout.stripe.token.id;
 		};
 
 		render() {
@@ -223,7 +237,7 @@ export default connect(
 								</Elements>
 							</StripeProvider>
 							<Button
-								modifiers={['green', 'large']}
+								modifiers={this.isOrderPlaceable() ? ['green', 'large'] : ['disabled', 'large']}
 								width={'180px'}
 								height={'42px'}
 								ml={'auto'}
