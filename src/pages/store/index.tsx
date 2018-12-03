@@ -55,18 +55,25 @@ class StorePage extends React.Component<Props, State> {
 		const store = await http()
 			.get('/stores/', {params: {slug: query.slug}})
 			.toPromise();
-		const customer = await http(req)
+		return http(req)
 			.get('/customers/me')
-			.toPromise();
-
-		return {
-			storeData: store.data,
-			cuisineSlug: store.data.cuisines[0] || '',
-			cart: customer ? customer.data.cart : {},
-			cartBelongsToStore: customer.data.cart
-				? customer.data.cart.store.uuid === store.data.uuid
-				: false,
-		};
+			.toPromise()
+			.then(res => {
+				return {
+					storeData: store.data,
+					cuisineSlug: store.data.cuisines[0] || '',
+					cart: res ? res.data.cart : {},
+					cartBelongsToStore: res.data.cart ? res.data.cart.store.uuid === store.data.uuid : false,
+				};
+			})
+			.catch(() => {
+				return {
+					storeData: store.data,
+					cuisineSlug: store.data.cuisines[0] || '',
+					cart: {},
+					cartBelongsToStore: false,
+				};
+			});
 	}
 
 	componentDidMount() {

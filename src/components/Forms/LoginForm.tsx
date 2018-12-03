@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Colors, fontScale, GreyColors} from '@/utils/ui';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import LoginForm from '@/components/Forms/blocks/LoginForm';
+import {StyledModal} from '@/components/Modals';
 
 interface LoginFormProps {
 	showLoginForm?: boolean;
@@ -11,14 +12,17 @@ interface LoginFormProps {
 	error?: any;
 }
 
-class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProps>> {
+type State = Partial<LoginFormProps>;
+
+const getParent = () => document.querySelector('body') as HTMLElement;
+
+class LoginFormComponent extends React.Component<
+	InjectedFormProps<LoginFormProps> & LoginFormProps,
+	State
+> {
 	constructor(props) {
 		super(props);
 	}
-
-	state = {
-		showLoginForm: false,
-	};
 
 	showLoginForm = () => this.setState({showLoginForm: true});
 
@@ -28,7 +32,11 @@ class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProp
 		return (
 			<Box mr={4}>
 				<LoginForm.LoginButton onClick={this.showLoginForm} text={'Log In'} />
-				{this.state.showLoginForm && (
+				<StyledModal
+					isOpen={this.props.showLoginForm}
+					ariaHideApp={false}
+					parentSelector={getParent}
+				>
 					<LoginForm>
 						<LoginForm.CloseButton onClick={this.hideLoginForm} />
 						<LoginForm.Header>
@@ -61,7 +69,7 @@ class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProp
 							<LoginForm.SubmitButton type="submit">Log In</LoginForm.SubmitButton>
 						</LoginForm.Body>
 					</LoginForm>
-				)}
+				</StyledModal>
 			</Box>
 		);
 	}

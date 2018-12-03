@@ -28,6 +28,7 @@ interface State {
 function mapStateToProps(state) {
 	return {
 		isLoggedIn: state.customer.isLoggedIn,
+		displayLoginForm: state.ui.displayLoginForm,
 	};
 }
 
@@ -115,7 +116,10 @@ class Header extends React.Component<HeaderProps, State> {
 					<StyledHeader.Right>
 						{!this.props.isLoggedIn ? (
 							<>
-								<LoginForm onSubmit={this.handleLoginFormSubmit} />
+								<LoginForm
+									onSubmit={this.handleLoginFormSubmit}
+									showLoginForm={this.props.displayLoginForm}
+								/>
 								<RegistrationForm onSubmit={this.handleRegisterFormSubmit} />
 							</>
 						) : (

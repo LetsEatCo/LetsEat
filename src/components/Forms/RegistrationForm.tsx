@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Colors, fontScale, GreyColors} from '@/utils/ui';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import RegistrationForm from '@/components/Forms/blocks/RegistrationForm';
+import {StyledModal} from '@/components/Modals';
 
 interface RegistrationFormProps extends React.ClassAttributes<any> {
 	showLoginForm?: boolean;
@@ -10,6 +11,8 @@ interface RegistrationFormProps extends React.ClassAttributes<any> {
 	handleSubmit?: any;
 	error?: any;
 }
+
+const getParent = () => document.querySelector('body') as HTMLElement;
 
 class RegistrationFormComponent extends React.Component<InjectedFormProps<RegistrationFormProps>> {
 	constructor(props) {
@@ -20,19 +23,19 @@ class RegistrationFormComponent extends React.Component<InjectedFormProps<Regist
 		showRegistrationForm: false,
 	};
 
-	showRegistrationForm = () => {
-		this.setState({showRegistrationForm: true});
-	};
+	showRegistrationForm = () => this.setState({showRegistrationForm: true});
 
-	hideRegistrationForm = () => {
-		this.setState({showRegistrationForm: false});
-	};
+	hideRegistrationForm = () => this.setState({showRegistrationForm: false});
 
 	render() {
 		return (
 			<div>
 				<RegistrationForm.RegistrationButton onClick={this.showRegistrationForm} text={'Sign Up'} />
-				{this.state.showRegistrationForm && (
+				<StyledModal
+					isOpen={this.state.showRegistrationForm}
+					ariaHideApp={false}
+					parentSelector={getParent}
+				>
 					<RegistrationForm>
 						<RegistrationForm.Header>
 							<Box>
@@ -83,7 +86,7 @@ class RegistrationFormComponent extends React.Component<InjectedFormProps<Regist
 							<RegistrationForm.SubmitButton type="submit">Register</RegistrationForm.SubmitButton>
 						</RegistrationForm.Body>
 					</RegistrationForm>
-				)}
+				</StyledModal>
 			</div>
 		);
 	}

@@ -90,7 +90,7 @@ export default connect(
 				.toPromise();
 
 			if (!(customer.data.cart.itemsCount > 0)) {
-				return redirectToLogin(res, '/');
+				return redirectToLogin(res, `/store/${query.slug}`);
 			}
 
 			return {

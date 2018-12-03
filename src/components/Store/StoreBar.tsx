@@ -128,7 +128,6 @@ export const StoreBar = connect(
 											as={`/store/${this.props.storeSlug}/checkout`}
 											href={`/store/checkout?slug=${this.props.storeSlug}`}
 											passHref={true}
-											prefetch={true}
 										>
 											<Link>
 												<CartModal.CheckoutButton>Checkout</CartModal.CheckoutButton>

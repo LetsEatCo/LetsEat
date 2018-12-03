@@ -7,13 +7,18 @@ import {ThemeProvider} from 'styled-components';
 import {theme} from '@/utils/ui/theme';
 import Fonts from '@/assets/fonts';
 import {makeStore} from '@/services/persistor.service';
-
+import {env} from '@/utils';
+import ProgressBar from '@/components/Common/ProgressBar';
+import {default as Base} from '@/utils/ui/base';
 interface AppProps extends React.ClassAttributes<any> {
 	store?: any;
 }
 
-export default withRedux(makeStore, {debug: true})(
+export default withRedux(makeStore, {debug: env('NODE_ENV') !== 'production'})(
 	class extends App<AppProps> {
+		constructor(props) {
+			super(props);
+		}
 		static async getInitialProps({Component, ctx}) {
 			return {
 				pageProps: {
@@ -29,17 +34,21 @@ export default withRedux(makeStore, {debug: true})(
 		render() {
 			const {Component, pageProps, store} = this.props;
 			return (
-				<Container>
-					<main>
-						<Provider store={store}>
-							<PersistGate persistor={store.__PERSISTOR__} loading={<div>Loading</div>}>
-								<ThemeProvider theme={theme}>
-									<Component {...pageProps} />
-								</ThemeProvider>
-							</PersistGate>
-						</Provider>
-					</main>
-				</Container>
+				<>
+					<Base />
+					<ProgressBar />
+					<Container>
+						<main>
+							<Provider store={store}>
+								<PersistGate persistor={store.__PERSISTOR__} loading={<ProgressBar />}>
+									<ThemeProvider theme={theme}>
+										<Component {...pageProps} />
+									</ThemeProvider>
+								</PersistGate>
+							</Provider>
+						</main>
+					</Container>
+				</>
 			);
 		}
 	},
