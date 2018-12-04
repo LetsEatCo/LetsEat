@@ -6244,15 +6244,17 @@ unique-string@^1.0.0:
   dependencies:
     crypto-random-string "^1.0.0"
 
-universal-cookie-koa@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/universal-cookie-koa/-/universal-cookie-koa-3.0.4.tgz#deb0388781e134d1d53e4c231273bd68dd7b5ff7"
+universal-cookie-koa@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/universal-cookie-koa/-/universal-cookie-koa-3.0.7.tgz#307ac2e2339b4497c44f8fe7b9f23e59635475c9"
+  integrity sha512-Jz7L6ruHQuJane1KYhi4InZMznMHPMRZz8dIzrl2YJbk2bCe0nwvdJNEC8BAszCyP9qeM2bsrrwJmZOcWlEEWw==
   dependencies:
-    universal-cookie "^3.0.4"
+    universal-cookie "^3.0.7"
 
-universal-cookie@^3.0.4:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-3.0.4.tgz#22c1a0dca6bb9e72da20d9e331d9d8f93d95e9dc"
+universal-cookie@^3.0.4, universal-cookie@^3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/universal-cookie/-/universal-cookie-3.0.7.tgz#722e8bc455bb33ed3c74988344fad9d9bb88278e"
+  integrity sha512-wfZRbaEzFTDbP64fzTfGDfokB3pWkDNjtsuRAZQWaiuj/Up+3/0AEvN4IhFHPK24iGNtGJ6PNIxv1GQzMSiyMw==
   dependencies:
     "@types/cookie" "^0.3.1"
     "@types/object-assign" "^4.0.30"
