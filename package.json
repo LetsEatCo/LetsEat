@@ -24,7 +24,7 @@
   "author": "Let's Eat <hello@letseat.co>",
   "license": "GPL-3.0",
   "dependencies": {
-    "@rebass/grid": "^6.0.0-4",
+    "@rebass/grid": "^6.0.0-5",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
     "axios": "^0.18.0",
