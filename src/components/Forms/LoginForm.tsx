@@ -3,6 +3,10 @@ import * as React from 'react';
 import {Colors, fontScale, GreyColors} from '@/utils/ui';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import LoginForm from '@/components/Forms/blocks/LoginForm';
+import {StyledModal} from '@/components/Modals';
+import {bindActionCreators} from 'redux';
+import {displayLoginFormAction} from '@/store/actions/ui.actions';
+import {connect} from 'react-redux';
 
 interface LoginFormProps {
 	showLoginForm?: boolean;
@@ -11,24 +15,39 @@ interface LoginFormProps {
 	error?: any;
 }
 
-class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProps>> {
+type State = Partial<LoginFormProps>;
+
+const getParent = () => document.querySelector('body') as HTMLElement;
+
+const mapDispatchToProps = dispatch => ({
+	displayLoginFormAction: bindActionCreators(displayLoginFormAction, dispatch),
+});
+
+class LoginFormComponent extends React.Component<
+	InjectedFormProps<LoginFormProps> & LoginFormProps,
+	State
+> {
 	constructor(props) {
 		super(props);
 	}
 
-	state = {
+	static defaultProps = {
 		showLoginForm: false,
 	};
 
-	showLoginForm = () => this.setState({showLoginForm: true});
+	showLoginForm = () => this.props.displayLoginFormAction(true);
 
-	hideLoginForm = () => this.setState({showLoginForm: false});
+	hideLoginForm = () => this.props.displayLoginFormAction(false);
 
 	render() {
 		return (
 			<Box mr={4}>
 				<LoginForm.LoginButton onClick={this.showLoginForm} text={'Log In'} />
-				{this.state.showLoginForm && (
+				<StyledModal
+					isOpen={this.props.showLoginForm}
+					ariaHideApp={false}
+					parentSelector={getParent}
+				>
 					<LoginForm>
 						<LoginForm.CloseButton onClick={this.hideLoginForm} />
 						<LoginForm.Header>
@@ -61,12 +80,12 @@ class LoginFormComponent extends React.Component<InjectedFormProps<LoginFormProp
 							<LoginForm.SubmitButton type="submit">Log In</LoginForm.SubmitButton>
 						</LoginForm.Body>
 					</LoginForm>
-				)}
+				</StyledModal>
 			</Box>
 		);
 	}
 }
 
-export default reduxForm({
+export default connect(null, mapDispatchToProps)(reduxForm({
 	form: 'loginForm',
-})(LoginFormComponent);
+})(LoginFormComponent));

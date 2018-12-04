@@ -62,7 +62,10 @@ class AddProductToCartFormComponent extends React.Component<Props> {
 								<Form.CloseButton onClick={this.props.handleClose} />
 							</Form.Header>
 							<Form.Body>
-								<Box>{createMealSubsectionsList(this.props.data.subsections)}</Box>
+								<Box style={{minHeight: '524px'}}>
+									{this.props.data.subsections &&
+										createMealSubsectionsList(this.props.data.subsections)}
+								</Box>
 							</Form.Body>
 						</Form.Upper>
 						<Form.Footer>

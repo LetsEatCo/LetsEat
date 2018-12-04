@@ -24,7 +24,9 @@ const ButtonModifiers = {
 	`,
 
 	disabled: ({theme}) => `
-		color: ${theme.colors.LightText}
+		background-color: ${theme.colors.MediumGrey};
+		color: ${theme.colors.White}
+		cursor: not-allowed;
 	`,
 
 	fullWidth: () => `

@@ -24,7 +24,15 @@ export default reduxForm({
 	class extends React.Component<Props> {
 		constructor(props) {
 			super(props);
+			this.state = {
+				address: false,
+			};
 		}
+		formElementChange = e => {
+			this.setState({[e.target.id]: !!e.target.value});
+		};
+
+		isFormComplete = () => this.state.address;
 
 		render() {
 			return (
@@ -37,19 +45,27 @@ export default reduxForm({
 								name="address"
 								placeholder="Address"
 								required={true}
+								id={'address'}
+								onChange={this.formElementChange}
 							/>
 							<DeliveryForm.TextArea
 								component="textarea"
 								name="deliveryNote"
 								placeholder="Add delivery instructions. (e.g. “Use the call box when you arrive.”)"
 								required={false}
+								id={'deliveryNote'}
 							/>
 							{this.props.error && (
 								<Text fontSize={fontScale(-2)} color={Colors.cadmiumRed} mt={3}>
 									{this.props.error}
 								</Text>
 							)}
-							<Button modifiers={['green', 'large']} width={'120px'} height={'42px'}>
+							<Button
+								modifiers={this.isFormComplete() ? ['green', 'large'] : ['disabled', 'large']}
+								disabled={!this.isFormComplete()}
+								width={'120px'}
+								height={'42px'}
+							>
 								Save
 							</Button>
 						</Flex>

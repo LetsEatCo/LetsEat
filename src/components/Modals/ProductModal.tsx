@@ -6,12 +6,7 @@ import {SubmissionError} from 'redux-form';
 import {StyledModal} from '@/components/Modals/index';
 import {AddProductToCartForm} from '@/components/Forms/AddProductToCartForm';
 import {ProductModal as Product} from '@/components/Modals/blocks/ProductModal';
-
-interface Props {
-	product: any;
-	addProductToCartAction?: any;
-	uuidKey: string;
-}
+import {displayLoginFormAction} from '@/store/actions/ui.actions';
 
 interface State {
 	showModal: boolean;
@@ -21,13 +16,14 @@ const getParent = () => document.querySelector('body') as HTMLElement;
 
 const mapDispatchToProps = dispatch => ({
 	addProductToCartAction: bindActionCreators(addItemToCartAction, dispatch),
+	displayLoginFormAction: bindActionCreators(displayLoginFormAction, dispatch),
 });
 
 export const ProductModal = connect(
 	null,
 	mapDispatchToProps,
 )(
-	class extends React.Component<Props, State> {
+	class extends React.Component<any, State> {
 		constructor(props) {
 			super(props);
 			this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -59,15 +55,26 @@ export const ProductModal = connect(
 				optionUuids,
 			};
 			try {
-				await new Promise((resolve, reject) => {
-					this.props.addProductToCartAction(data, resolve, reject);
-				});
+				return new Promise((resolve, reject) => {
+					return this.props.addProductToCartAction(data, resolve, reject);
+				})
+					.then(() => this.handleCloseModal())
+					.catch(() => {
+						this.handleCloseModal();
+						this.props.displayLoginFormAction(true);
+					});
 			} catch {
+				this.handleCloseModal();
+				this.props.displayLoginFormAction(true);
 				throw new SubmissionError({
 					_error: 'Error',
 				});
 			}
 		};
+
+		componentWillUnmount() {
+			this.props.displayLoginFormAction(false);
+		}
 
 		render() {
 			return (

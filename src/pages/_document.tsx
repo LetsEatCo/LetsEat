@@ -1,10 +1,16 @@
 import Document, {Head, Main, NextScript} from 'next/document';
 import React from 'react';
+import {ServerStyleSheet} from 'styled-components';
 
 export default class MyDocument extends Document {
 	static async getInitialProps(ctx) {
 		const initialProps = await Document.getInitialProps(ctx);
-		return {...initialProps};
+		const sheet = new ServerStyleSheet();
+
+		const page = ctx.renderPage(App => props => sheet.collectStyles(<App {...props} />));
+
+		const styleTags = sheet.getStyleElement();
+		return {...initialProps, ...page, styleTags};
 	}
 
 	render() {
@@ -12,26 +18,6 @@ export default class MyDocument extends Document {
 			<html>
 				<Head />
 				<body>
-					<style jsx={true} global={true}>{`
-						body {
-							font-family: LetsEatStd, Helvetica Neue, Helvetica;
-							text-rendering: optimizeLegibility;
-							-webkit-font-smoothing: antialiased;
-						}
-						textarea:focus,
-						input:focus,
-						button:focus {
-							outline: none;
-						}
-						::selection {
-							color: rgba(255, 255, 255, 0.9);
-							background: rgba(0, 0, 0, 0.9);
-						}
-						::-moz-selection {
-							color: rgba(255, 255, 255, 0.9);
-							background: rgba(0, 0, 0, 0.9);
-						}
-					`}</style>
 					<Main />
 					<NextScript />
 				</body>

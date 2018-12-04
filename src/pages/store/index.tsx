@@ -6,7 +6,6 @@ import {Container} from '@/components/Common/Container';
 import {StoreBanner} from '@/components/Store/blocks/StoreBanner';
 import {StoreInformations} from '@/components/Store/blocks/StoreInformations';
 import {connect} from 'react-redux';
-import {default as NextLink} from 'next/link';
 import {createStoreSectionsList} from '@/components/Lists/StoreSectionsList';
 import {StoreSectionsList} from '@/components/Lists/blocks/StoreSectionsList';
 import {StoreBar} from '@/components/Store/StoreBar';
@@ -15,7 +14,7 @@ import Router from 'next/router';
 interface StorePageProps {
 	store: any;
 	storeData: any;
-	cuisineSlug: string;
+	cuisine: any;
 	itemsCount: number;
 	hasItems: boolean;
 	cart: any;
@@ -37,12 +36,6 @@ const mapStateToProps = state => {
 	};
 };
 
-const CuisineLink = ({href, text}) => (
-	<NextLink href={href} passHref={true}>
-		<StoreInformations.Details.Cuisine>{text}</StoreInformations.Details.Cuisine>
-	</NextLink>
-);
-
 class StorePage extends React.Component<Props, State> {
 	constructor(props) {
 		super(props);
@@ -51,22 +44,29 @@ class StorePage extends React.Component<Props, State> {
 	static async getInitialProps({
 		query,
 		req,
-	}): Promise<{storeData: any; cuisineSlug: string; cart: any; cartBelongsToStore: boolean}> {
+	}): Promise<{storeData: any; cuisine: any; cart: any; cartBelongsToStore: boolean}> {
 		const store = await http()
-			.get('/stores/', {params: {slug: query.slug}})
+			.get('/stores', {params: {slug: query.slug}})
 			.toPromise();
-		const customer = await http(req)
+		return http(req)
 			.get('/customers/me')
-			.toPromise();
-
-		return {
-			storeData: store.data,
-			cuisineSlug: store.data.cuisines[0] || '',
-			cart: customer ? customer.data.cart : {},
-			cartBelongsToStore: customer.data.cart
-				? customer.data.cart.store.uuid === store.data.uuid
-				: false,
-		};
+			.toPromise()
+			.then(res => {
+				return {
+					storeData: store.data,
+					cuisine: store.data.cuisines[0] || '',
+					cart: res ? res.data.cart : {},
+					cartBelongsToStore: res.data.cart ? res.data.cart.store.uuid === store.data.uuid : false,
+				};
+			})
+			.catch(() => {
+				return {
+					storeData: store.data,
+					cuisine: store.data.cuisines[0] || '',
+					cart: {},
+					cartBelongsToStore: false,
+				};
+			});
 	}
 
 	componentDidMount() {
@@ -94,11 +94,8 @@ class StorePage extends React.Component<Props, State> {
 				<Container flexDirection={'column'}>
 					<StoreInformations>
 						<StoreInformations.Details>
-							{this.props.cuisineSlug && (
-								<CuisineLink
-									href={`/discover/${this.props.cuisineSlug}`}
-									text={this.props.cuisineSlug}
-								/>
+							{this.props.cuisine.slug && (
+								<StoreInformations.Details.Cuisine>{this.props.cuisine.slug}</StoreInformations.Details.Cuisine>
 							)}
 						</StoreInformations.Details>
 						<StoreInformations.Name>{this.props.storeData.name}</StoreInformations.Name>

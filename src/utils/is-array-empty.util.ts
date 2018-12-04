@@ -1,1 +1,1 @@
-export const isArrayEmpty = (array: any[]) => array.length === 0;
+export const isArrayEmpty = (array: any[]) => Array.isArray(array) && array.length === 0;

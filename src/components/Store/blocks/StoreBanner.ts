@@ -11,7 +11,6 @@ export const StoreBanner = styled(Card)`
 	width: 100%;
 	background-color: #f6f6f6;
 	box-shadow: 0 2px 24px rgba(0, 0, 0, 0.05);
-	border-radius: 4px;
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;

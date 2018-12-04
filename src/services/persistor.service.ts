@@ -10,7 +10,7 @@ export const makeStore: any = (initialState, {isServer}) => {
 	const persistConfig = {
 		key: 'root',
 		storage,
-		blacklist: ['form'],
+		blacklist: ['form', 'ui', 'checkout'],
 	};
 
 	const persistedReducer = persistReducer(persistConfig, rootReducer);

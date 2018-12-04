@@ -3,11 +3,14 @@ import {Section} from '@/components/Section/blocks';
 import {ProductModal} from '@/components/Modals/ProductModal';
 import {ProductsList} from '@/components/Lists/blocks/ProductsList';
 
-const createSectionProductsList = (products: any[], meals: any[]) =>
-	products.map((product, index) => (
-		<ProductModal key={index} product={product} uuidKey={'productUuid'} />
-	)) &&
-	meals.map((meal, index) => <ProductModal key={index} product={meal} uuidKey={'mealUuid'} />);
+const createSectionProductsList = (products: any[], meals: any[]) => [
+	...products.map((product, index) => (
+		<ProductModal key={`product-${index}`} product={product} uuidKey={'productUuid'} />
+	)),
+	...meals.map((meal, index) => (
+		<ProductModal key={`meal-${index}`} product={meal} uuidKey={'mealUuid'} />
+	)),
+];
 
 export const createStoreSectionsList = (sections: any[]) =>
 	sections.map((section, index) => (
