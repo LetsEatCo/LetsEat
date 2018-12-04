@@ -4,6 +4,7 @@ import {Flex, Text} from 'rebass';
 import {fontScale} from '@/utils/ui';
 import {AddProductToCartForm as Form} from '@/components/Forms/blocks/AddProductToCartForm';
 import update from 'immutability-helper';
+import {isArrayEmpty} from '@/utils';
 
 const Subsection = styled.div`
 	display: flex;
@@ -140,16 +141,18 @@ class MealSubsection extends React.Component<any, any> {
 					{this.props.subsection.name} (Up to {this.props.subsection.maxSelectionsPermitted})
 				</SubsectionName>
 				<SubsectionOptions>
-					{createSubsectionsOptionsProductsList(
+					{this.props.subsection && !isArrayEmpty(this.props.subsection.products) &&
+						createSubsectionsOptionsProductsList(
 						this.props.subsection,
 						this.handleChange,
 						this.state,
 					)}
-					{createSubsectionsOptionsIngredientsList(
-						this.props.subsection,
-						this.handleChange,
-						this.state,
-					)}
+					{this.props.subsection && !isArrayEmpty(this.props.subsection.products) &&
+						createSubsectionsOptionsIngredientsList(
+							this.props.subsection,
+							this.handleChange,
+							this.state,
+						)}
 				</SubsectionOptions>
 			</Subsection>
 		);

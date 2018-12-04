@@ -23,7 +23,7 @@ const Details = styled.div`
 	justify-content: flex-end;
 `;
 
-const Cuisine = styled.a`
+const Cuisine = styled.p`
 	display: flex;
 	justify-content: flex-end;
 	text-transform: uppercase;

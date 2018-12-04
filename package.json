@@ -63,6 +63,7 @@
     "universal-cookie-koa": "^3.0.4"
   },
   "devDependencies": {
+    "@types/koa": "^2.0.47",
     "@types/next": "^7.0.5",
     "@types/next-redux-wrapper": "^2.0.0",
     "@types/node": "^10.12.9",

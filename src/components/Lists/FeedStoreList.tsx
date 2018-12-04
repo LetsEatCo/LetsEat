@@ -57,7 +57,11 @@ export {StoreList};
 export const createStoreList = (stores: any[]) =>
 	stores.map((store, index) => (
 		<Store key={index}>
-			<NextLink as={`/store/${store.slug}`} href={`/store?slug=${store.slug}`} passHref={true}>
+			<NextLink
+				as={`/store/${store.slug}`}
+				href={{pathname: '/store', query: {slug: store.slug}}}
+				passHref={true}
+			>
 				<StoreLink>
 					<StoreCardImage backgroundImage={`url(${store.imageUrl})`} />
 					<StoreDescription>

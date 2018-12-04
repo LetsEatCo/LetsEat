@@ -10,8 +10,7 @@ import helmet from 'koa-helmet';
 dotenv.config();
 
 const dev = env('NODE_ENV') !== 'production';
-const quiet = env('NODE_ENV') === 'production';
-const app = Next({dev, dir: './src', quiet});
+const app = Next({dev, dir: './src', quiet: true});
 const handle = app.getRequestHandler();
 
 app

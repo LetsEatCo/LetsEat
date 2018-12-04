@@ -4,6 +4,9 @@ import {Colors, fontScale, GreyColors} from '@/utils/ui';
 import {InjectedFormProps, reduxForm} from 'redux-form';
 import LoginForm from '@/components/Forms/blocks/LoginForm';
 import {StyledModal} from '@/components/Modals';
+import {bindActionCreators} from 'redux';
+import {displayLoginFormAction} from '@/store/actions/ui.actions';
+import {connect} from 'react-redux';
 
 interface LoginFormProps {
 	showLoginForm?: boolean;
@@ -16,6 +19,10 @@ type State = Partial<LoginFormProps>;
 
 const getParent = () => document.querySelector('body') as HTMLElement;
 
+const mapDispatchToProps = dispatch => ({
+	displayLoginFormAction: bindActionCreators(displayLoginFormAction, dispatch),
+});
+
 class LoginFormComponent extends React.Component<
 	InjectedFormProps<LoginFormProps> & LoginFormProps,
 	State
@@ -24,9 +31,13 @@ class LoginFormComponent extends React.Component<
 		super(props);
 	}
 
-	showLoginForm = () => this.setState({showLoginForm: true});
+	static defaultProps = {
+		showLoginForm: false,
+	};
 
-	hideLoginForm = () => this.setState({showLoginForm: false});
+	showLoginForm = () => this.props.displayLoginFormAction(true);
+
+	hideLoginForm = () => this.props.displayLoginFormAction(false);
 
 	render() {
 		return (
@@ -75,6 +86,6 @@ class LoginFormComponent extends React.Component<
 	}
 }
 
-export default reduxForm({
+export default connect(null, mapDispatchToProps)(reduxForm({
 	form: 'loginForm',
-})(LoginFormComponent);
+})(LoginFormComponent));

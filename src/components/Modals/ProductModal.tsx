@@ -55,9 +55,14 @@ export const ProductModal = connect(
 				optionUuids,
 			};
 			try {
-				await new Promise((resolve, reject) => {
-					this.props.addProductToCartAction(data, resolve, reject);
-				});
+				return new Promise((resolve, reject) => {
+					return this.props.addProductToCartAction(data, resolve, reject);
+				})
+					.then(() => this.handleCloseModal())
+					.catch(() => {
+						this.handleCloseModal();
+						this.props.displayLoginFormAction(true);
+					});
 			} catch {
 				this.handleCloseModal();
 				this.props.displayLoginFormAction(true);

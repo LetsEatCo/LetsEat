@@ -135,8 +135,12 @@ export default connect(
 		placeOrder = async () => {
 			const data = {
 				totalToPay: this.props.cart.totalPrice,
-				deliveryAddress: this.props.checkout.deliveryAddress.address,
-				deliveryNote: this.props.checkout.deliveryAddress.deliveryNote,
+				deliveryAddress: this.props.checkout.deliveryAddress
+					? this.props.checkout.deliveryAddress.address
+					: '',
+				deliveryNote: this.props.checkout.deliveryAddress
+					? this.props.checkout.deliveryAddress.deliveryNote
+					: '',
 				paymentDetails: {id: this.props.checkout.stripe.token.id},
 				isDelivery: this.state.fulfillmentType === 'delivery',
 				isTakeAway: this.state.fulfillmentType === 'takeAway',
@@ -147,7 +151,7 @@ export default connect(
 			return http()
 				.post('customers/me/orders', data)
 				.subscribe({
-					next: () => {
+					next: async () => {
 						return redirectToLogin(null, '/orders');
 					},
 					error: error => {
@@ -158,13 +162,20 @@ export default connect(
 
 		private readonly isOrderPlaceable = () => {
 			if (this.state.fulfillmentType === 'delivery') {
-				return (
-					this.props.cart.totalPrice !== 0 &&
-					this.props.checkout.deliveryAddress.address !== '' &&
-					this.props.checkout.stripe.token.id
-				);
+				if (this.props.checkout.deliveryAddress && this.props.checkout.stripe) {
+					return (
+						this.props.checkout.deliveryAddress.address !== '' &&
+						this.props.cart.totalPrice !== 0 &&
+						this.props.checkout.deliveryAddress &&
+						this.props.checkout.stripe.token.id
+					);
+				}
+				return false;
 			}
-			return this.props.cart.totalPrice !== 0 && this.props.checkout.stripe.token.id;
+			if (this.props.checkout.stripe) {
+				return this.props.cart.totalPrice !== 0 && this.props.checkout.stripe.token.id;
+			}
+			return false;
 		};
 
 		render() {
@@ -242,6 +253,7 @@ export default connect(
 								height={'42px'}
 								ml={'auto'}
 								mt={'28px'}
+								disabled={!this.isOrderPlaceable()}
 								onClick={this.placeOrder}
 							>
 								ORDER
