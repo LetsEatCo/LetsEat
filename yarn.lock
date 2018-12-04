@@ -5090,9 +5090,10 @@ readdirp@^2.0.0:
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
 
-rebass@^3.0.0-11:
-  version "3.0.0-11"
-  resolved "https://registry.yarnpkg.com/rebass/-/rebass-3.0.0-11.tgz#f066ddc02ba2c080396cb45f462b0c32b647f03a"
+rebass@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/rebass/-/rebass-3.0.0.tgz#3c9add593046dba9d39af001c96c67448eca8d55"
+  integrity sha512-O5kbFdl8hyGmetoybEGHOi2EwVJWr37iJbM1zHRF+Vkvuo/OYxjIu4XnPF6DRKGtsn2BPOfas3Gp1QBO6aq6/A==
   dependencies:
     styled-system "^3.1.11"
 
